@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const NavLink = ({ href, pathname, children }) => { //INFO: code reusability
+const NavLink = ({ href, pathname, children }) => {
   const isActive = pathname === href;
   return (
     <Link
