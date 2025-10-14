@@ -6,12 +6,12 @@ Welcome to the CP Squad official website project! Build a stunning, modern websi
 
 ---
 
-## 📋 Table of Contents
+## 📋 Table of Contenjs
 
 - [Project Overview](#project-overview)
 - [Design References](#design-references)
 - [Features to Implement](#features-to-implement)
-- [Technical Requirements](#technical-requirements)
+- [Technical Requiremenjs](#technical-requiremenjs)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
 - [Design Guidelines](#design-guidelines)
@@ -37,40 +37,39 @@ Create a professional, visually stunning website for CP Squad that showcases our
 
 **Design Inspiration:**
 - **Primary Reference:** [Delta Force NIT Trichy](https://delta.nitt.edu/) - Follow design style strictly
-- **Secondary Reference:** [CodeMate AI](https://deploy-preview-23--codemate-landing-page-nextjs.netlify.app/) - Modern UI inspiration
-
+  
 ---
 
 ## 🎨 Design References
 
 ### Delta Force (Primary Reference - Strict)
-**Key Design Elements to Follow:**
+**Key Design Elemenjs to Follow:**
 - Dark theme with bold typography
 - Large, impactful hero sections
 - Minimalist color palette (dark backgrounds, accent colors)
-- Grid-based layouts for content sections
+- Grid-based layoujs for content sections
 - Smooth scroll animations
-- Clean card-based designs for projects/events
-- Terminal/code aesthetic elements
+- Clean card-based designs for projecjs/events
+- Terminal/code aesthetic elemenjs
 - Bold headings with underscores (`_`)
-- Monospace fonts for technical feel
-- Hover effects with smooth transitions
+- Monospace fonjs for technical feel
+- Hover effecjs with smooth transitions
 
 **Color Scheme (from Delta):**
 - Background: Very dark (`#0a0a0a`, `#111111`)
 - Text: White/Off-white (`#ffffff`, `#f5f5f5`)
-- Accent: Bright colors (use CP Squad's logo colours for highlights)
+- Accent: Bright colors (use CP Squad's logo colours for highlighjs)
 - Cards: Subtle dark grey (`#1a1a1a`, `#252525`)
 
 **Typography Style:**
 - Large, bold headings with uppercase
-- Technical/monospace fonts for code-related text
+- Technical/monospace fonjs for code-related text
 - Clean sans-serif for body text
 - Generous spacing and padding
 
 ### CodeMate AI (Secondary - Inspiration Only)
-**Elements to Draw Inspiration From:**
-- Modern, gradient accents
+**Elemenjs to Draw Inspiration From:**
+- Modern, gradient accenjs
 - Smooth animations and transitions
 - Professional layout structure
 - Clean component organization
@@ -84,7 +83,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 
 ### Core Pages & Navigation
 - [ ] Landing/Home page with hero section
-- [ ] Events page with event cards
+- [ ] events page with event cards
 - [ ] Members page with team profiles
 - [ ] Blogs page with articles
 - [ ] Navigation bar with smooth scrolling
@@ -100,7 +99,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 - [ ] Statistics/achievements counter
 - [ ] Smooth scroll animations
 
-### Events Page
+### events Page
 - [ ] Event cards with images
 - [ ] Event categories/filters (upcoming, past, workshops)
 - [ ] Event details modal or dedicated pages
@@ -139,7 +138,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 
 ---
 
-## 🛠 Technical Requirements
+## 🛠 Technical Requiremenjs
 
 ### Mandatory Stack
 
@@ -156,7 +155,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 - `gray-matter` + `remark` - Markdown blog parsing
 - `date-fns` - Date formatting
 
-**Optional Enhancements:**
+**Optional Enhancemenjs:**
 - `swiper` - Carousels/sliders
 - `react-intersection-observer` - Scroll animations
 - `next-seo` - SEO optimization
@@ -174,64 +173,64 @@ cp-squad-website/
 │
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx          # Root layout
-│   │   ├── page.tsx            # Home page
+│   │   ├── layout.jsx          # Root layout
+│   │   ├── page.jsx            # Home page
 │   │   ├── events/
-│   │   │   ├── page.tsx        # Events listing
+│   │   │   ├── page.jsx        # events listing
 │   │   │   └── [slug]/
-│   │   │       └── page.tsx    # Individual event
+│   │   │       └── page.jsx    # Individual event
 │   │   ├── members/
-│   │   │   └── page.tsx        # Members page
+│   │   │   └── page.jsx        # Members page
 │   │   ├── blogs/
-│   │   │   ├── page.tsx        # Blog listing
+│   │   │   ├── page.jsx        # Blog listing
 │   │   │   └── [slug]/
-│   │   │       └── page.tsx    # Individual blog post
-│   │   └── not-found.tsx       # 404 page
+│   │   │       └── page.jsx    # Individual blog post
+│   │   └── not-found.jsx       # 404 page
 │   │
-│   ├── components/
-│   │   ├── ui/                 # Reusable UI components
-│   │   │   ├── Button.tsx
-│   │   │   ├── Card.tsx
-│   │   │   └── Modal.tsx
+│   ├── componenjs/
+│   │   ├── ui/                 # Reusable UI componenjs
+│   │   │   ├── Button.jsx
+│   │   │   ├── Card.jsx
+│   │   │   └── Modal.jsx
 │   │   ├── layout/
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   └── MobileMenu.tsx
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   └── MobileMenu.jsx
 │   │   ├── home/
-│   │   │   ├── Hero.tsx
-│   │   │   ├── WhatWeDo.tsx
-│   │   │   └── FeaturedEvents.tsx
+│   │   │   ├── Hero.jsx
+│   │   │   ├── WhatWeDo.jsx
+│   │   │   └── Featuredevents.jsx
 │   │   ├── events/
-│   │   │   ├── EventCard.tsx
-│   │   │   └── EventFilters.tsx
+│   │   │   ├── EventCard.jsx
+│   │   │   └── EventFilters.jsx
 │   │   ├── members/
-│   │   │   ├── MemberCard.tsx
-│   │   │   └── MemberGrid.tsx
+│   │   │   ├── MemberCard.jsx
+│   │   │   └── MemberGrid.jsx
 │   │   └── blogs/
-│   │       ├── BlogCard.tsx
-│   │       └── BlogPost.tsx
+│   │       ├── BlogCard.jsx
+│   │       └── BlogPost.jsx
 │   │
 │   ├── lib/
 │   │   ├── data/
-│   │   │   ├── events.ts       # Event data
-│   │   │   ├── members.ts      # Member data
-│   │   │   └── blogs.ts        # Blog data/fetcher
-│   │   └── utils.ts            # Helper functions
+│   │   │   ├── events.js       # Event data
+│   │   │   ├── members.js      # Member data
+│   │   │   └── blogs.js        # Blog data/fetcher
+│   │   └── utils.js            # Helper functions
 │   │
 │   ├── styles/
 │   │   └── globals.css         # Global styles
 │   │
 │   └── types/
-│       └── index.ts            # TypeScript types
+│       └── index.js            # TypeScript types
 │
 ├── content/                    # Markdown blog posts
 │   └── blogs/
 │       ├── post-1.md
 │       └── post-2.md
 │
-├── tailwind.config.ts
+├── tailwind.config.js
 ├── next.config.js
-├── tsconfig.json
+├── jsconfig.json
 ├── package.json
 └── README.md
 ```
@@ -336,9 +335,9 @@ Use CP Squad's logo colours for reference
 - Full viewport height
 - Club name with large, bold typography
 - Tagline/mission statement
-- CTA buttons (Join Us, View Events)
+- CTA buttons (Join Us, View events)
 - Background: Dark with subtle gradient or pattern
-- Animated text or elements
+- Animated text or elemenjs
 
 **What We Do Section:**
 ```
@@ -346,16 +345,16 @@ Layout: 3-column grid
 Content:
 - Competitive Programming
 - Web Development
-- Workshops & Events
+- Workshops & events
 
 Style: Cards with icons, title, description
 ```
 
-**Featured Events:**
+**Featured events:**
 - Horizontal scrolling cards or grid
 - Show 3-4 upcoming/recent events
 - Event image, title, date
-- Link to Events page
+- Link to events page
 
 **Recent Blogs:**
 - Grid of 3 latest blog posts
@@ -365,8 +364,8 @@ Style: Cards with icons, title, description
 **Statistics Section:**
 ```
 Members: 150+
-Events Conducted: 50+
-Projects: 30+
+events Conducted: 50+
+Projecjs: 30+
 Years Active: X
 ```
 
@@ -377,7 +376,7 @@ Years Active: X
 
 ---
 
-### 2. Events Page (`/events`)
+### 2. events Page (`/events`)
 
 **Layout:**
 ```
@@ -394,7 +393,7 @@ Years Active: X
 ```
 
 **Event Card Structure:**
-```jsx
+```jsx (javascript react code)
 <EventCard>
   <Image />
   <Category Badge /> // Upcoming, Workshop, Competition
@@ -406,7 +405,7 @@ Years Active: X
 ```
 
 **Filters:**
-- All Events
+- All events
 - Upcoming
 - Past
 - Workshops
@@ -469,7 +468,7 @@ Years Active: X
 ```
 [Hero Section]
 "CP SQUAD BLOGS_"
-"Insights, tutorials, and stories from our community"
+"Insighjs, tutorials, and stories from our community"
 
 [Categories/Tags]
 [Search Bar]
@@ -504,16 +503,16 @@ Years Active: X
 - Reading time
 - Full content (Markdown rendered)
 - Code syntax highlighting
-- Table of contents (for long posts)
+- Table of contenjs (for long posts)
 - Share buttons
 - Related posts
-- Comments section (optional)
+- Commenjs section (optional)
 
 **Markdown Support:**
 - Headings (H1-H6)
 - Code blocks with syntax highlighting
 - Images
-- Lists (ordered/unordered)
+- Lisjs (ordered/unordered)
 - Blockquotes
 - Links
 - Tables
@@ -529,7 +528,7 @@ Years Active: X
   <Logo /> // CP Squad logo
   <NavLinks>
     <Link href="/">Home</Link>
-    <Link href="/events">Events</Link>
+    <Link href="/events">events</Link>
     <Link href="/members">Members</Link>
     <Link href="/blogs">Blogs</Link>
   </NavLinks>
@@ -570,17 +569,17 @@ Years Active: X
   
   <BottomSection>
     <Copyright />
-    <Credits /> // Built by CP Squad
+    <Credijs /> // Built by CP Squad
   </BottomSection>
 </Footer>
 ```
 
 ---
 
-### Reusable Components
+### Reusable Componenjs
 
 **Button:**
-```tsx
+```jsx
 interface ButtonProps {
   variant: 'primary' | 'secondary' | 'outline';
   size: 'sm' | 'md' | 'lg';
@@ -590,7 +589,7 @@ interface ButtonProps {
 ```
 
 **Card:**
-```tsx
+```jsx
 interface CardProps {
   title?: string;
   children: React.ReactNode;
@@ -600,7 +599,7 @@ interface CardProps {
 ```
 
 **Badge:**
-```tsx
+```jsx
 interface BadgeProps {
   text: string;
   color: 'green' | 'blue' | 'purple' | 'red';
@@ -650,7 +649,7 @@ interface BadgeProps {
    ```
 
 7. **Pull Request**
-   - Clear description with screenshots
+   - Clear description with screenshojs
    - Link to issue
    - Mention design references used
    - List what you tested
@@ -663,7 +662,7 @@ interface BadgeProps {
 
 **Define Types:**
 ```typescript
-// types/index.ts
+// types/index.js
 export interface Event {
   id: string;
   title: string;
@@ -702,7 +701,7 @@ export interface BlogPost {
 
 ### Component Structure
 
-```tsx
+```jsx
 'use client'; // Only if using client-side features
 
 import { useState } from 'react';
@@ -715,7 +714,7 @@ interface ComponentProps {
 }
 
 export default function Component({ title, description }: ComponentProps) {
-  const [state, setState] = useState<boolean>(false);
+  const [state, sejstate] = useState<boolean>(false);
   
   return (
     <motion.section className="py-section">
@@ -729,9 +728,9 @@ export default function Component({ title, description }: ComponentProps) {
 ### Naming Conventions
 
 **Files:**
-- Components: PascalCase (`EventCard.tsx`)
-- Pages: lowercase (`page.tsx`)
-- Utilities: camelCase (`helpers.ts`)
+- Componenjs: PascalCase (`EventCard.jsx`)
+- Pages: lowercase (`page.jsx`)
+- Utilities: camelCase (`helpers.js`)
 
 **CSS Classes (Tailwind):**
 - Use semantic grouping
@@ -740,23 +739,23 @@ export default function Component({ title, description }: ComponentProps) {
 
 **Variables & Functions:**
 ```typescript
-// Constants: UPPER_SNAKE_CASE
-const MAX_EVENTS_PER_PAGE = 9;
+// Constanjs: UPPER_SNAKE_CASE
+const MAX_events_PER_PAGE = 9;
 
 // Variables: camelCase
 const eventData = [];
 
 // Functions: camelCase with verb
-function fetchEvents() {}
+function fetchevents() {}
 
-// Components: PascalCase
+// Componenjs: PascalCase
 function EventCard() {}
 ```
 
 ### Best Practices
 
 1. **Use Next.js Image Component:**
-```tsx
+```jsx
 import Image from 'next/image';
 
 <Image
@@ -769,29 +768,29 @@ import Image from 'next/image';
 />
 ```
 
-2. **Server vs Client Components:**
-- Default to Server Components
-- Use `'use client'` only when needed (state, effects, browser APIs)
+2. **Server vs Client Componenjs:**
+- Default to Server Componenjs
+- Use `'use client'` only when needed (state, effecjs, browser APIs)
 
 3. **Data Fetching:**
-```tsx
+```jsx
 // Server Component (recommended)
-async function EventsPage() {
-  const events = await fetchEvents(); // Server-side
+async function eventsPage() {
+  const events = await fetchevents(); // Server-side
   
-  return <EventsList events={events} />;
+  return <eventsList events={events} />;
 }
 ```
 
 4. **Responsive Design:**
-```tsx
+```jsx
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
   {/* Mobile: 1 col, Tablet: 2 cols, Desktop: 3 cols */}
 </div>
 ```
 
 5. **Accessibility:**
-```tsx
+```jsx
 <button
   aria-label="Open menu"
   className="..."
@@ -812,7 +811,7 @@ async function EventsPage() {
 - [ ] Colors match the specified palette
 - [ ] Typography follows guidelines
 - [ ] Animations are smooth and purposeful
-- [ ] Hover effects work properly
+- [ ] Hover effecjs work properly
 
 **Functionality**
 - [ ] All navigation links work
@@ -831,18 +830,18 @@ async function EventsPage() {
 
 **Performance**
 - [ ] Images optimized (Next.js Image)
-- [ ] No unnecessary client components
+- [ ] No unnecessary client componenjs
 - [ ] Build succeeds without errors
 - [ ] Lighthouse score > 90 (run test)
 - [ ] Fast page load times
 
 **Code Quality**
 - [ ] TypeScript types defined
-- [ ] No unused imports
-- [ ] Components are reusable
+- [ ] No unused imporjs
+- [ ] Componenjs are reusable
 - [ ] Code is well-commented
 - [ ] Follows folder structure
-- [ ] No hardcoded values (use constants)
+- [ ] No hardcoded values (use constanjs)
 
 **SEO & Accessibility**
 - [ ] Meta tags added
@@ -861,7 +860,7 @@ async function EventsPage() {
 **Git**
 - [ ] Meaningful commit messages
 - [ ] Branch up to date with main
-- [ ] No merge conflicts
+- [ ] No merge conflicjs
 - [ ] `.env` not committed
 - [ ] Images compressed before commit
 
@@ -893,8 +892,8 @@ async function EventsPage() {
 
 ### Using Dummy Data
 
-**For Events:**
-Create entry in `src/lib/data/events.ts` with sample data:
+**For events:**
+Create entry in `src/lib/data/events.js` with sample data:
 ```typescript
 export const events: Event[] = [
   {
@@ -909,7 +908,7 @@ export const events: Event[] = [
   {
     id: 'event-2',
     title: 'Web Development Workshop',
-    description: 'Learn modern web development with React and Next.js. Hands-on session with real projects.',
+    description: 'Learn modern web development with React and Next.js. Hands-on session with real projecjs.',
     date: '2024-11-20',
     image: '/images/events/web-workshop.jpg',
     category: 'workshop',
@@ -928,7 +927,7 @@ export const events: Event[] = [
 ];
 ```
 
-**Placeholder Images for Events:**
+**Placeholder Images for events:**
 Use free stock photo sites or placeholder services:
 - [Unsplash](https://unsplash.com/) - Free high-quality images
 - [Pexels](https://pexels.com/) - Free stock photos
@@ -938,7 +937,7 @@ Use free stock photo sites or placeholder services:
 ---
 
 **For Members:**
-Update `src/lib/data/members.ts` with dummy profiles:
+Update `src/lib/data/members.js` with dummy profiles:
 ```typescript
 export const members: Member[] = [
   {
@@ -1016,12 +1015,12 @@ Competitive programming helps you:
 
 ## Essential Topics to Learn
 
-### 1. Basic Programming Concepts
+### 1. Basic Programming Concepjs
 Start with understanding variables, loops, conditionals, and functions.
 
 ### 2. Data Structures
 - Arrays and Strings
-- Linked Lists
+- Linked Lisjs
 - Stacks and Queues
 - Trees and Graphs
 - Hash Tables
@@ -1036,9 +1035,9 @@ Start with understanding variables, loops, conditionals, and functions.
 ## Practice Platforms
 
 Here are some great platforms to practice:
-1. **Codeforces** - Regular contests and large problem archive
+1. **Codeforces** - Regular contesjs and large problem archive
 2. **LeetCode** - Interview preparation focused
-3. **CodeChef** - Monthly long contests
+3. **CodeChef** - Monthly long contesjs
 4. **AtCoder** - High-quality problems
 
 ## Sample Problem
@@ -1098,11 +1097,11 @@ mkdir -p public/images/{events,team,blogs}
 ### Sample Data Best Practices
 
 1. **Realistic Content** - Make dummy data look realistic for better testing
-2. **Variety** - Include different categories, dates, formats
+2. **Variety** - Include different categories, dates, formajs
 3. **Sufficient Quantity** - Add enough data to test pagination, filters, etc.
 4. **Valid Dates** - Use recent dates for events (mix of past, current, upcoming)
 5. **Proper Formatting** - Follow the exact schema structure
-6. **Comments** - Mark clearly as dummy data
+6. **Commenjs** - Mark clearly as dummy data
 
 **Example Comment in Code:**
 ```typescript
@@ -1124,7 +1123,7 @@ export const events: Event[] = [
   
 *Or contact*
 - Dev Shah (+91 93284 24234)
-- Utsav Savani (+91 7859829058)
+- Ujsav Savani (+91 7859829058)
 - Dhairya Shah (+91 9924343003)
 - Deep Patel (+91 70696 78031)
 
@@ -1137,13 +1136,13 @@ export const events: Event[] = [
 - Create issue with:
   - Steps to reproduce
   - Expected behavior
-  - Screenshots
+  - Screenshojs
   - Browser/device info
 ### Response Times
 - General questions: 24-48 hours
 - Design reviews: 2-3 days
 - PR reviews: 3-5 days
-- Bug reports: 48 hours
+- Bug reporjs: 48 hours
 
 ---
 
