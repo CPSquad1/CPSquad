@@ -37,7 +37,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 
 **Design Inspiration:**
 - **Primary Reference:** [Delta Force NIT Trichy](https://delta.nitt.edu/) - Follow design style strictly
-  
+- **Secondary Reference:** [CodeMate AI](https://deploy-preview-23--codemate-landing-page-nextjs.netlify.app/) - Modern UI inspiration
 ---
 
 ## 🎨 Design References
