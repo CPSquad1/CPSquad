@@ -1,10 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
+import NavLinks from "./NavLinks";
 
 const Navbar = () => {
-    return (
+  const pathname = usePathname();
+
+  return (
     <header className="fixed top-0 left-0 w-full bg-black/50 backdrop-blur-sm z-50">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
@@ -19,26 +23,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center space-x-8">
-          <Link
-            href="/events"
-            className="text-gray-300 hover:text-white transition-colors"
-          >
-            Events
-          </Link>
-          <Link
-            href="/members"
-            className="text-gray-300 hover:text-white transition-colors"
-          >
-            Members
-          </Link>
-          <Link
-            href="/blogs"
-            className="text-gray-300 hover:text-white transition-colors"
-          >
-            Blogs
-          </Link>
-        </div>
+        <NavLinks pathname={pathname} />
 
         {/* Mobile Menu Button (Placeholder) */}
         <div className="md:hidden">
