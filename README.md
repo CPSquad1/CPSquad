@@ -43,14 +43,14 @@ Create a professional, visually stunning website for CP Squad that showcases our
 ## 🎨 Design References
 
 ### Delta Force (Primary Reference - Strict)
-**Key Design Elemenjs to Follow:**
+**Key Design Elements to Follow:**
 - Dark theme with bold typography
 - Large, impactful hero sections
 - Minimalist color palette (dark backgrounds, accent colors)
 - Grid-based layoujs for content sections
 - Smooth scroll animations
 - Clean card-based designs for projecjs/events
-- Terminal/code aesthetic elemenjs
+- Terminal/code aesthetic Elements
 - Bold headings with underscores (`_`)
 - Monospace fonjs for technical feel
 - Hover effecjs with smooth transitions
@@ -68,7 +68,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 - Generous spacing and padding
 
 ### CodeMate AI (Secondary - Inspiration Only)
-**Elemenjs to Draw Inspiration From:**
+**Elements to Draw Inspiration From:**
 - Modern, gradient accenjs
 - Smooth animations and transitions
 - Professional layout structure
@@ -337,7 +337,7 @@ Use CP Squad's logo colours for reference
 - Tagline/mission statement
 - CTA buttons (Join Us, View events)
 - Background: Dark with subtle gradient or pattern
-- Animated text or elemenjs
+- Animated text or Elements
 
 **What We Do Section:**
 ```
