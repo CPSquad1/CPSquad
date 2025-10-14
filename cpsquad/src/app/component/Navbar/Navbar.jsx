@@ -4,10 +4,13 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import NavLinks from "./NavLinks";
 import Logo from "./Logo";
+import MobileMenuButton from "./MobileMenuButton";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,12 +22,21 @@ const Navbar = () => {
 
     // Set initial state after hydration
     handleScroll();
-
+    document.title= `${pathname} | CPSquad`
     document.addEventListener("scroll", handleScroll);
     return () => {
       document.removeEventListener("scroll", handleScroll);
     };
-  }, [scrolled]); // Dependency array can be simplified, but this works
+  }, [scrolled]);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => (document.body.style.overflow = "auto");
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -35,8 +47,14 @@ const Navbar = () => {
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Logo />
         <NavLinks pathname={pathname} />
-
+        <MobileMenuButton
+          isMenuOpen={isMenuOpen}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        />
       </nav>
+      {isMenuOpen && (
+        <MobileMenu pathname={pathname} closeMenu={() => setIsMenuOpen(false)} />
+      )}
     </header>
   );
 };
