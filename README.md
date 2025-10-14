@@ -33,7 +33,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 
 **Estimated Time:** 20-35 hours
 
-**Tech Stack:** Next.js 14+ (App Router), React, TypeScript, Tailwind CSS
+**Tech Stack:** Next.js 14+ (App Router), React, JavaScript, Tailwind CSS
 
 **Design Inspiration:**
 - **Primary Reference:** [Delta Force NIT Trichy](https://delta.nitt.edu/) - Follow design style strictly
@@ -145,7 +145,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 **Framework & Core:**
 - Next.js 14+ with App Router
 - React 18+
-- TypeScript (strongly recommended)
+- Javascript (strongly recommended)
 - Tailwind CSS for styling
 
 **Recommended Libraries:**
@@ -221,7 +221,7 @@ cp-squad-website/
 │   │   └── globals.css         # Global styles
 │   │
 │   └── types/
-│       └── index.js            # TypeScript types
+│       └── index.js            # Javascript types
 │
 ├── content/                    # Markdown blog posts
 │   └── blogs/
@@ -625,7 +625,6 @@ interface BadgeProps {
 
 3. **Development**
    - Follow design guidelines strictly
-   - Use TypeScript for type safety
    - Make it responsive (mobile-first)
    - Test on different screen sizes
 
@@ -658,10 +657,10 @@ interface BadgeProps {
 
 ## 📏 Code Standards (Just for example)
 
-### TypeScript Usage
+### Javascript Usage
 
 **Define Types:**
-```typescript
+```Javascript
 // types/index.js
 export interface Event {
   id: string;
@@ -738,7 +737,7 @@ export default function Component({ title, description }: ComponentProps) {
 - Dark mode: `dark:` (if implementing)
 
 **Variables & Functions:**
-```typescript
+```Javascript
 // Constanjs: UPPER_SNAKE_CASE
 const MAX_events_PER_PAGE = 9;
 
@@ -836,7 +835,7 @@ async function eventsPage() {
 - [ ] Fast page load times
 
 **Code Quality**
-- [ ] TypeScript types defined
+- [ ] Javascript types defined
 - [ ] No unused imporjs
 - [ ] Componenjs are reusable
 - [ ] Code is well-commented
@@ -894,7 +893,7 @@ async function eventsPage() {
 
 **For events:**
 Create entry in `src/lib/data/events.js` with sample data:
-```typescript
+```Javascript
 export const events: Event[] = [
   {
     id: 'event-1',
@@ -938,7 +937,7 @@ Use free stock photo sites or placeholder services:
 
 **For Members:**
 Update `src/lib/data/members.js` with dummy profiles:
-```typescript
+```Javascript
 export const members: Member[] = [
   {
     id: 'member-1',
@@ -1104,7 +1103,7 @@ mkdir -p public/images/{events,team,blogs}
 6. **Commenjs** - Mark clearly as dummy data
 
 **Example Comment in Code:**
-```typescript
+```Javascript
 // ⚠️ DUMMY DATA - Replace with real data before production
 export const events: Event[] = [
   // Sample events for development and testing
