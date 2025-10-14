@@ -47,29 +47,29 @@ Create a professional, visually stunning website for CP Squad that showcases our
 - Dark theme with bold typography
 - Large, impactful hero sections
 - Minimalist color palette (dark backgrounds, accent colors)
-- Grid-based layoujs for content sections
+- Grid-based layouts for content sections
 - Smooth scroll animations
-- Clean card-based designs for projecjs/events
+- Clean card-based designs for projects/events
 - Terminal/code aesthetic Elements
 - Bold headings with underscores (`_`)
-- Monospace fonjs for technical feel
-- Hover effecjs with smooth transitions
+- Monospace fonts for technical feel
+- Hover effects with smooth transitions
 
 **Color Scheme (from Delta):**
 - Background: Very dark (`#0a0a0a`, `#111111`)
 - Text: White/Off-white (`#ffffff`, `#f5f5f5`)
-- Accent: Bright colors (use CP Squad's logo colours for highlighjs)
+- Accent: Bright colors (use CP Squad's logo colours for highlights)
 - Cards: Subtle dark grey (`#1a1a1a`, `#252525`)
 
 **Typography Style:**
 - Large, bold headings with uppercase
-- Technical/monospace fonjs for code-related text
+- Technical/monospace fonts for code-related text
 - Clean sans-serif for body text
 - Generous spacing and padding
 
 ### CodeMate AI (Secondary - Inspiration Only)
 **Elements to Draw Inspiration From:**
-- Modern, gradient accenjs
+- Modern, gradient accents
 - Smooth animations and transitions
 - Professional layout structure
 - Clean component organization
@@ -138,7 +138,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 
 ---
 
-## 🛠 Technical Requiremenjs
+## 🛠 Technical Requirements
 
 ### Mandatory Stack
 
@@ -155,7 +155,7 @@ Create a professional, visually stunning website for CP Squad that showcases our
 - `gray-matter` + `remark` - Markdown blog parsing
 - `date-fns` - Date formatting
 
-**Optional Enhancemenjs:**
+**Optional Enhancements:**
 - `swiper` - Carousels/sliders
 - `react-intersection-observer` - Scroll animations
 - `next-seo` - SEO optimization
@@ -187,8 +187,8 @@ cp-squad-website/
 │   │   │       └── page.jsx    # Individual blog post
 │   │   └── not-found.jsx       # 404 page
 │   │
-│   ├── componenjs/
-│   │   ├── ui/                 # Reusable UI componenjs
+│   ├── components/
+│   │   ├── ui/                 # Reusable UI components
 │   │   │   ├── Button.jsx
 │   │   │   ├── Card.jsx
 │   │   │   └── Modal.jsx
@@ -365,7 +365,7 @@ Style: Cards with icons, title, description
 ```
 Members: 150+
 events Conducted: 50+
-Projecjs: 30+
+Projects: 30+
 Years Active: X
 ```
 
@@ -468,7 +468,7 @@ Years Active: X
 ```
 [Hero Section]
 "CP SQUAD BLOGS_"
-"Insighjs, tutorials, and stories from our community"
+"Insights, tutorials, and stories from our community"
 
 [Categories/Tags]
 [Search Bar]
@@ -503,16 +503,16 @@ Years Active: X
 - Reading time
 - Full content (Markdown rendered)
 - Code syntax highlighting
-- Table of contenjs (for long posts)
+- Table of contents (for long posts)
 - Share buttons
 - Related posts
-- Commenjs section (optional)
+- Comments section (optional)
 
 **Markdown Support:**
 - Headings (H1-H6)
 - Code blocks with syntax highlighting
 - Images
-- Lisjs (ordered/unordered)
+- Lists (ordered/unordered)
 - Blockquotes
 - Links
 - Tables
@@ -569,14 +569,14 @@ Years Active: X
   
   <BottomSection>
     <Copyright />
-    <Credijs /> // Built by CP Squad
+    <Credits /> // Built by CP Squad
   </BottomSection>
 </Footer>
 ```
 
 ---
 
-### Reusable Componenjs
+### Reusable components
 
 **Button:**
 ```jsx
@@ -648,7 +648,7 @@ interface BadgeProps {
    ```
 
 7. **Pull Request**
-   - Clear description with screenshojs
+   - Clear description with screenshots
    - Link to issue
    - Mention design references used
    - List what you tested
@@ -713,7 +713,7 @@ interface ComponentProps {
 }
 
 export default function Component({ title, description }: ComponentProps) {
-  const [state, sejstate] = useState<boolean>(false);
+  const [state, setstate] = useState<boolean>(false);
   
   return (
     <motion.section className="py-section">
@@ -727,7 +727,7 @@ export default function Component({ title, description }: ComponentProps) {
 ### Naming Conventions
 
 **Files:**
-- Componenjs: PascalCase (`EventCard.jsx`)
+- components: PascalCase (`EventCard.jsx`)
 - Pages: lowercase (`page.jsx`)
 - Utilities: camelCase (`helpers.js`)
 
@@ -738,7 +738,7 @@ export default function Component({ title, description }: ComponentProps) {
 
 **Variables & Functions:**
 ```Javascript
-// Constanjs: UPPER_SNAKE_CASE
+// Constants: UPPER_SNAKE_CASE
 const MAX_events_PER_PAGE = 9;
 
 // Variables: camelCase
@@ -747,7 +747,7 @@ const eventData = [];
 // Functions: camelCase with verb
 function fetchevents() {}
 
-// Componenjs: PascalCase
+// components: PascalCase
 function EventCard() {}
 ```
 
@@ -767,9 +767,9 @@ import Image from 'next/image';
 />
 ```
 
-2. **Server vs Client Componenjs:**
-- Default to Server Componenjs
-- Use `'use client'` only when needed (state, effecjs, browser APIs)
+2. **Server vs Client components:**
+- Default to Server components
+- Use `'use client'` only when needed (state, effects, browser APIs)
 
 3. **Data Fetching:**
 ```jsx
@@ -810,7 +810,7 @@ async function eventsPage() {
 - [ ] Colors match the specified palette
 - [ ] Typography follows guidelines
 - [ ] Animations are smooth and purposeful
-- [ ] Hover effecjs work properly
+- [ ] Hover effects work properly
 
 **Functionality**
 - [ ] All navigation links work
@@ -829,18 +829,18 @@ async function eventsPage() {
 
 **Performance**
 - [ ] Images optimized (Next.js Image)
-- [ ] No unnecessary client componenjs
+- [ ] No unnecessary client components
 - [ ] Build succeeds without errors
 - [ ] Lighthouse score > 90 (run test)
 - [ ] Fast page load times
 
 **Code Quality**
 - [ ] Javascript types defined
-- [ ] No unused imporjs
-- [ ] Componenjs are reusable
+- [ ] No unused imports
+- [ ] components are reusable
 - [ ] Code is well-commented
 - [ ] Follows folder structure
-- [ ] No hardcoded values (use constanjs)
+- [ ] No hardcoded values (use constants)
 
 **SEO & Accessibility**
 - [ ] Meta tags added
