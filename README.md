@@ -1121,7 +1121,7 @@ export const events: Event[] = [
 
 **Questions?**
 - Email: cpsquad@charusat.ac.in
-- Or contact Nandit Kalaria (9999999999) or Nirmit Patel (8888888888)
+- Or contact Dhairya Shah (9924343003) or Nirmit Patel (8888888888)
 
 **Design Questions?**
 - Share your mockups in discussions
