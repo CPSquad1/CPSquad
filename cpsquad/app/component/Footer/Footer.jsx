@@ -37,7 +37,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-b from-[#0a0a0a] to-[#111111] text-white border-t border-gray-800">
+    <footer id="footer" className="relative bg-gradient-to-b from-[#0a0a0a] to-[#111111] text-white border-t border-gray-800">
       {/* Gradient overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
       
