@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import NavLinks from "./NavLinks";
 import Logo from "./Logo";
-import MobileMenuButton from "./MobileMenuButton";
-import MobileMenu from "./MobileMenu";
+import MobileMenuButton from "./MobileMenu/MobileMenuButton";
+import MobileMenu from "./MobileMenu/MobileMenu";
 
 const Navbar = () => {
   const pathname = usePathname();
