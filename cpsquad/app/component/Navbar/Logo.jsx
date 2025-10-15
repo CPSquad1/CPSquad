@@ -6,6 +6,7 @@ const Logo = () => {
     <Link href="/" className="flex items-center gap-3">
       <Image
         src="/images/logo.png" //TODO: replace with actual logo once made available
+
         alt="CPSquadLogo"
         width={40}
         height={40}
@@ -14,5 +15,6 @@ const Logo = () => {
     </Link>
   );
 };
-
 export default Logo;
+
+//! Web_source  of the image  href="https://www.vecteezy.com/free-png/working

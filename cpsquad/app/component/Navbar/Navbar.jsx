@@ -22,7 +22,6 @@ const Navbar = () => {
 
     // Set initial state after hydration
     handleScroll();
-    document.title= `${pathname} | CPSquad`
     document.addEventListener("scroll", handleScroll);
     return () => {
       document.removeEventListener("scroll", handleScroll);
@@ -39,11 +38,7 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
-        scrolled ? "bg-background/95 backdrop-blur-sm" : "bg-transparent"
-      }`}
-    >
+    <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${scrolled ? "bg-background/80 backdrop-blur-sm" : "bg-transparent"}`}>
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Logo />
         <NavLinks pathname={pathname} />

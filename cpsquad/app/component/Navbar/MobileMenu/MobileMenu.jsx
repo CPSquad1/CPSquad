@@ -24,12 +24,29 @@ const MobileMenu = ({ pathname, closeMenu }) => {
   ];
 
   return (
-    <div className="md:hidden fixed inset-0 bg-background/95 backdrop-blur-md flex flex-col items-center justify-center space-y-8 z-40">
-      {links.map((link) => (
-        <MobileNavLink key={link.href} href={link.href} pathname={pathname} closeMenu={closeMenu}>
-          {link.label}
-        </MobileNavLink>
-      ))}
+    <div className="md:hidden fixed inset-0 bg-background/95 backdrop-blur-md z-40">
+      <button
+        onClick={closeMenu}
+        className="absolute top-4 right-6 text-white focus:outline-none"
+        aria-label="Close menu"
+      >
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <div className="h-full flex flex-col items-center justify-center space-y-8">
+        {links.map((link) => (
+          <MobileNavLink key={link.href} href={link.href} pathname={pathname} closeMenu={closeMenu}>
+            {link.label}
+          </MobileNavLink>
+        ))}
+      </div>
     </div>
   );
 };
