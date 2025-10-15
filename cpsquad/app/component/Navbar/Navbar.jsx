@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { AnimatePresence } from "framer-motion";
 import NavLinks from "./NavLinks";
 import Logo from "./Logo";
 import MobileMenuButton from "./MobileMenu/MobileMenuButton";
@@ -47,9 +48,11 @@ const Navbar = () => {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       </nav>
-      {isMenuOpen && (
-        <MobileMenu pathname={pathname} closeMenu={() => setIsMenuOpen(false)} />
-      )}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <MobileMenu pathname={pathname} closeMenu={() => setIsMenuOpen(false)} />
+        )}
+      </AnimatePresence>
     </header>
   );
 };
