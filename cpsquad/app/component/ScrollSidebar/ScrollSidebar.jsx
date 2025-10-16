@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 const ScrollSidebar = () => {
   const [activeSection, setActiveSection] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   // Define sections
   const sections = [
@@ -15,6 +16,9 @@ const ScrollSidebar = () => {
   ];
 
   useEffect(() => {
+    // Fade in on mount
+    setTimeout(() => setIsVisible(true), 100);
+
     const handleScroll = () => {
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
@@ -67,22 +71,23 @@ const ScrollSidebar = () => {
   };
 
   return (
-    <div className="fixed right-4 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40">
-      <div className="relative flex flex-col items-center" style={{ height: '200px' }}>
-        {/* Main vertical white line in center */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[1.5px] h-full bg-white"></div>
+    <div className={`fixed right-4 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 transition-opacity duration-700 ${
+      isVisible ? "opacity-100" : "opacity-0"
+    }`}>
+      <div className="relative flex flex-col items-end" style={{ height: '200px' }}>
+        {/* Main vertical white line */}
+        <div className="absolute right-0 top-0 w-[1.5px] h-full bg-white"></div>
 
         {/* Section indicators */}
-        <div className="relative h-full flex flex-col justify-between py-3">
+        <div className="relative h-full flex flex-col justify-evenly py-3">
           {sections.map((section, index) => (
-            <>
+            <div key={section.id}>
               <div
-                key={section.id}
-                className="relative group cursor-pointer flex items-center justify-center"
+                className="relative group cursor-pointer flex items-center justify-end"
                 onClick={() => scrollToSection(section.id)}
               >
-                {/* Bar - extends from center line with expand animation */}
-                <div className="flex items-center">
+                {/* Bar - extends TO the line with expand animation */}
+                <div className="flex items-center gap-0">
                   {/* Left bar with expand animation */}
                   <div 
                     className={`bg-white transition-all duration-500 ease-in-out ${
@@ -91,9 +96,6 @@ const ScrollSidebar = () => {
                         : "w-3 sm:w-4 md:w-5 h-[1.5px]"
                     }`}
                   ></div>
-                  
-                  {/* Center gap for vertical line */}
-                  <div className="w-[1.5px]"></div>
                 </div>
 
                 {/* Tooltip - desktop only */}
@@ -106,15 +108,13 @@ const ScrollSidebar = () => {
 
               {/* Small decorative bars between major sections (except after last section) */}
               {index < sections.length - 1 && (
-                <div className="flex flex-col gap-3 py-2">
+                <div className="flex flex-col gap-3 py-2 items-end">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex items-center justify-center">
-                      <div className="w-1.5 sm:w-2 md:w-2.5 h-[1px] bg-white/50"></div>
-                    </div>
+                    <div key={i} className="w-1.5 sm:w-2 md:w-2.5 h-[1px] bg-white/50"></div>
                   ))}
                 </div>
               )}
-            </>
+            </div>
           ))}
         </div>
       </div>
