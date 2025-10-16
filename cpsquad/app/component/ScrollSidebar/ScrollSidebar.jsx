@@ -5,9 +5,8 @@ import { useState, useEffect } from "react";
 const ScrollSidebar = () => {
   const [activeSection, setActiveSection] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
 
-  // Define sections - you can customize these based on your page structure
+  // Define sections
   const sections = [
     { id: "hero", label: "Home" },
     { id: "about", label: "About" },
@@ -21,15 +20,11 @@ const ScrollSidebar = () => {
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
 
-      // Show sidebar after scrolling a bit
-      setIsVisible(scrollTop > 100);
-
-      // Calculate overall scroll progress (0 to 1)
+      // Calculate scroll progress
       const maxScroll = documentHeight - windowHeight;
       const progress = maxScroll > 0 ? scrollTop / maxScroll : 0;
       setScrollProgress(Math.min(progress, 1));
 
-      // Determine active section based on scroll position
       const sectionElements = sections.map((section) =>
         document.getElementById(section.id)
       );
@@ -38,7 +33,6 @@ const ScrollSidebar = () => {
       sectionElements.forEach((element, index) => {
         if (element) {
           const rect = element.getBoundingClientRect();
-          // If section is in the viewport center, mark as active
           if (rect.top <= windowHeight * 0.5 && rect.bottom >= windowHeight * 0.3) {
             currentSection = index;
           }
@@ -48,10 +42,7 @@ const ScrollSidebar = () => {
       setActiveSection(currentSection);
     };
 
-    // Initial call after a short delay to ensure DOM is ready
     setTimeout(handleScroll, 100);
-
-    // Add scroll listener
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });
 
@@ -64,7 +55,7 @@ const ScrollSidebar = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const offset = 80; // Account for navbar
+      const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -76,66 +67,61 @@ const ScrollSidebar = () => {
   };
 
   return (
-    <div 
-      className={`fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 hidden lg:block transition-opacity duration-500 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
-      <div className="relative flex flex-col items-center" style={{ height: '300px' }}>
-        {/* Main vertical line */}
-        <div className="absolute left-1/2 -translate-x-1/2 w-[2px] h-full bg-white/30 rounded-full"></div>
+    <div className="fixed right-4 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40">
+      <div className="relative flex flex-col items-center" style={{ height: '200px' }}>
+        {/* Main vertical white line in center */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[1.5px] h-full bg-white"></div>
 
-        {/* Progress line that fills based on scroll */}
-        <div
-          className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] rounded-full bg-gradient-to-b from-emerald-400 via-green-500 to-emerald-600 shadow-lg shadow-green-500/50 transition-all duration-500 ease-out"
-          style={{ height: `${scrollProgress * 100}%` }}
-        ></div>
-
-        {/* Section indicators (bars) */}
-        <div className="relative h-full flex flex-col justify-between py-4">
+        {/* Section indicators */}
+        <div className="relative h-full flex flex-col justify-between py-3">
           {sections.map((section, index) => (
-            <div
-              key={section.id}
-              className="relative z-10 group cursor-pointer flex items-center py-2"
-              onClick={() => scrollToSection(section.id)}
-            >
-              {/* Bar indicator */}
+            <>
               <div
-                className={`h-[2px] transition-all duration-500 ease-out rounded-full ${
-                  index === activeSection
-                    ? "bg-white w-16 shadow-lg shadow-white/50"
-                    : index < activeSection
-                    ? "bg-white/80 w-12 group-hover:w-14 group-hover:shadow-md group-hover:shadow-white/30"
-                    : "bg-white/30 w-8 group-hover:bg-white/70 group-hover:w-12 group-hover:shadow-sm group-hover:shadow-white/20"
-                }`}
-              ></div>
+                key={section.id}
+                className="relative group cursor-pointer flex items-center justify-center"
+                onClick={() => scrollToSection(section.id)}
+              >
+                {/* Bar - extends from center line with expand animation */}
+                <div className="flex items-center">
+                  {/* Left bar with expand animation */}
+                  <div 
+                    className={`bg-white transition-all duration-500 ease-in-out ${
+                      activeSection === index
+                        ? "w-8 sm:w-10 md:w-12 h-[2.5px]"
+                        : "w-3 sm:w-4 md:w-5 h-[1.5px]"
+                    }`}
+                  ></div>
+                  
+                  {/* Center gap for vertical line */}
+                  <div className="w-[1.5px]"></div>
+                </div>
 
-              {/* Tooltip label */}
-              <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none scale-95 group-hover:scale-100">
-                <div className="bg-white text-black px-4 py-2 rounded-md text-sm font-mono whitespace-nowrap shadow-xl border border-gray-200">
-                  {section.label}
-                  {/* Arrow */}
-                  <div className="absolute left-full top-1/2 -translate-y-1/2 -ml-[1px]">
-                    <div className="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-white"></div>
+                {/* Tooltip - desktop only */}
+                <div className="hidden lg:block absolute right-full mr-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                  <div className="bg-white text-black px-2 py-1 rounded text-xs font-mono">
+                    {section.label}
                   </div>
                 </div>
               </div>
 
-              {/* Active indicator dot with pulse effect */}
-              {index === activeSection && (
-                <>
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-500/50"></div>
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-emerald-400 rounded-full animate-ping opacity-75"></div>
-                </>
+              {/* Small decorative bars between major sections (except after last section) */}
+              {index < sections.length - 1 && (
+                <div className="flex flex-col gap-3 py-2">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex items-center justify-center">
+                      <div className="w-1.5 sm:w-2 md:w-2.5 h-[1px] bg-white/50"></div>
+                    </div>
+                  ))}
+                </div>
               )}
-            </div>
+            </>
           ))}
         </div>
       </div>
 
       {/* Scroll percentage indicator */}
-      <div className="mt-6 text-center">
-        <div className="text-white/70 text-xs font-mono font-semibold bg-white/10 px-3 py-1 rounded-full border border-white/20">
+      <div className="mt-4 text-center">
+        <div className="text-white text-xs font-mono bg-black/50 px-3 py-1 rounded-full border border-white/30">
           {Math.round(scrollProgress * 100)}%
         </div>
       </div>
