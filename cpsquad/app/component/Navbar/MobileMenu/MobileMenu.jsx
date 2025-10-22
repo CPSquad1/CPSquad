@@ -11,7 +11,7 @@ const MobileNavLink = ({ href, pathname, closeMenu, children }) => {
         <motion.div variants={itemVariants}>
             <Link
                 href={href}
-                className={`text-3xl font-bold transition-colors ${isActive ? "text-accent" : "text-white hover:text-accent"}`}
+                className={`text-3xl font-bold transition-colors ${isActive ? "text-green-500" : "text-white hover:text-green-500"}`}
                 onClick={closeMenu}
             >
                 {children}
@@ -44,7 +44,7 @@ const MobileMenu = ({ pathname, closeMenu }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="md:hidden fixed inset-0 bg-background/95 backdrop-blur-md z-40"
+      className="md:hidden fixed inset-0 bg-black/95 backdrop-blur-md z-40"
     >
       <motion.div
         className="h-full flex flex-col items-start justify-center space-y-8 px-8"
