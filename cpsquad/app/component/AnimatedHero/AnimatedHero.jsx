@@ -35,12 +35,12 @@ const AnimatedHero = () => {
     useEffect(() => {
       const createTriangleMatrix = () => {
         const chars = [];
-        const rows = 30; // More rows for denser pattern
+        const rows = 20; // Reduced rows for smaller triangle
         
         for (let row = 0; row < rows; row++) {
           // Calculate characters per row (triangle shape - wider at bottom)
-          const charsInRow = Math.floor(4 + (row * 2.8));
-          const rowWidth = charsInRow * 1.5; // Total width of this row
+          const charsInRow = Math.floor(3 + (row * 1.8));
+          const rowWidth = charsInRow * 2; // Total width of this row
           const startX = 50 - (rowWidth / 2); // Center each row
           
           for (let col = 0; col < charsInRow; col++) {
@@ -48,8 +48,8 @@ const AnimatedHero = () => {
             chars.push({
               id: `char-${row}-${col}`,
               char: matrixChars[Math.floor(Math.random() * matrixChars.length)],
-              x: startX + (col * 1.5), // Horizontal spacing
-              y: 8 + (row * 2.3), // Vertical spacing - starts higher
+              x: startX + (col * 2), // Horizontal spacing
+              y: 15 + (row * 3), // Vertical spacing - starts lower for centered triangle
               brightness: randomBrightness,
               glowDelay: Math.random() * 5, // Random glow timing
             });
@@ -84,7 +84,7 @@ const AnimatedHero = () => {
             style={{
               left: `${charData.x}%`,
               top: `${charData.y}%`,
-              fontSize: 'clamp(10px, 1.1vw, 14px)',
+              fontSize: 'clamp(8px, 1vw, 12px)',
               textShadow: `0 0 5px rgba(0, 255, 0, ${charData.brightness * 0.8})`,
               filter: `brightness(${charData.brightness})`,
               fontWeight: 400,
@@ -128,7 +128,7 @@ const AnimatedHero = () => {
             className="text-white font-bold mb-6 sm:mb-8 md:mb-10 tracking-wider relative z-30"
             style={{
               fontSize: 'clamp(3.5rem, 15vw, 9rem)',
-              fontFamily: "'Arial Black', 'Helvetica', sans-serif",
+              fontFamily: "'Pixelify Sans', 'Arial Black', 'Helvetica', sans-serif",
               fontWeight: 900,
               letterSpacing: 'clamp(0.3em, 3vw, 0.8em)',
               textShadow: '6px 6px 12px rgba(0, 0, 0, 0.9)',
@@ -146,12 +146,14 @@ const AnimatedHero = () => {
             className="min-h-[2rem] sm:min-h-[2.5rem] md:min-h-[3rem] flex items-center justify-center mb-10 sm:mb-12 md:mb-14 relative z-30"
           >
             <div 
-              className="text-[#00ff00] font-bold tracking-wide"
+              className="text-[#00ff00] font-bold tracking-wide px-6 py-2"
               style={{
-                fontSize: 'clamp(1rem, 3.5vw, 2.5rem)',
-                fontFamily: "'Courier New', monospace",
-                textShadow: '0 0 10px rgba(0, 255, 0, 0.6)',
-                letterSpacing: '0.1em',
+                fontSize: 'clamp(1.2rem, 3vw, 2rem)',
+                fontFamily: 'var(--font-pixelify-sans)',
+                textShadow: '0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.4)',
+                letterSpacing: '0.05em',
+                fontWeight: 700,
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
               }}
             >
               <DecryptedText
@@ -168,46 +170,6 @@ const AnimatedHero = () => {
                 animateOn="view"
               />
             </div>
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.3, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4 sm:px-6 relative z-30"
-          >
-            <motion.a
-              href="#about"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 0 30px rgba(0, 255, 0, 0.6)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 sm:px-10 py-3 sm:py-4 bg-[#00ff00] text-black font-bold text-sm sm:text-base md:text-lg border-2 border-[#00ff00] transition-all w-full sm:w-auto text-center max-w-xs uppercase tracking-wider hover:bg-[#00dd00]"
-              style={{
-                fontFamily: "'Arial', sans-serif",
-                fontWeight: 'bold',
-              }}
-            >
-              Learn More
-            </motion.a>
-            <motion.a
-              href="#features"
-              whileHover={{ 
-                scale: 1.05,
-                backgroundColor: "#00ff00",
-                color: "#000",
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 sm:px-10 py-3 sm:py-4 border-2 border-[#00ff00] text-[#00ff00] font-bold text-sm sm:text-base md:text-lg transition-all w-full sm:w-auto text-center max-w-xs uppercase tracking-wider"
-              style={{
-                fontFamily: "'Arial', sans-serif",
-                fontWeight: 'bold',
-              }}
-            >
-              Explore
-            </motion.a>
           </motion.div>
         </motion.div>
       </div>
