@@ -1,20 +1,17 @@
 import Link from "next/link";
-import Image from "next/image";
+import CPSquadLogo from "./CPSquadLogo";
 
 const Logo = () => {
   return (
-    <Link href="/" className="flex items-center gap-3">
-      <Image
-        src="/images/logo.png" //TODO: replace with actual logo once made available
-
-        alt="CPSquadLogo"
-        width={40}
-        height={40}
-        className="h-10 w-auto"
-      />
+    <Link href="/" className="flex items-center gap-3 group">
+      <div className="relative">
+        <CPSquadLogo className="h-10 w-10 transition-transform duration-300 group-hover:scale-110 text-green-500" />
+      </div>
+      <span className="text-xl font-bold text-white group-hover:text-green-400 transition-colors duration-300">
+        CP SQUAD
+      </span>
     </Link>
   );
 };
-export default Logo;
 
-//! Web_source  of the image  href="https://www.vecteezy.com/free-png/working
+export default Logo;
