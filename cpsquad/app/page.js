@@ -1,10 +1,37 @@
+"use client";
 import Image from "next/image";
+import React, { useState, useRef } from "react";
+import BlogCard from "./component/BlogCard/BlogCard";
+import blogdata from "./lib/data/blogdata.js";
 
 export default function Home() {
+  const [cardsShown, setCardsShown] = useState(3);
+  const blogsRef = useRef(null);
+  const [scrollToBlogs, setScrollToBlogs] = useState(false);
+
+  function handleCardsShown() {
+    if (cardsShown === 3) {
+      setCardsShown(blogdata.length);
+    } else {
+      setCardsShown(3);
+    }
+    setScrollToBlogs(true);
+  }
+
+  React.useEffect(() => {
+    if (scrollToBlogs) {
+      blogsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      setScrollToBlogs(false);
+    }
+  }, [scrollToBlogs]);
+
   return (
     <div className="font-sans bg-[#0a0a0a] text-white">
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center p-8">
+      <section
+        id="hero"
+        className="min-h-screen flex items-center justify-center p-8"
+      >
         <div className="text-center max-w-4xl">
           <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
             CP SQUAD_
@@ -30,24 +57,32 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="min-h-screen flex items-center justify-center p-8 bg-[#111111]">
+      <section
+        id="about"
+        className="min-h-screen flex items-center justify-center p-8 bg-[#111111]"
+      >
         <div className="max-w-4xl">
           <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
             ABOUT US_
           </h2>
           <p className="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
-            We're coders, enthusiasts, geeks. We're CP Squad - a community dedicated to 
-            building competitive programming skills and fostering a culture of continuous learning.
+            We're coders, enthusiasts, geeks. We're CP Squad - a community
+            dedicated to building competitive programming skills and fostering a
+            culture of continuous learning.
           </p>
           <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
-            Fueled by a passion for programming and problem-solving, our club doesn't just 
-            build skills, we delve deeper into algorithms, data structures, and competitive programming strategies.
+            Fueled by a passion for programming and problem-solving, our club
+            doesn't just build skills, we delve deeper into algorithms, data
+            structures, and competitive programming strategies.
           </p>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="min-h-screen flex items-center justify-center p-8">
+      <section
+        id="features"
+        className="min-h-screen flex items-center justify-center p-8"
+      >
         <div className="max-w-6xl w-full">
           <h2 className="text-4xl md:text-6xl font-bold mb-12 text-center tracking-tight">
             WHAT WE DO_
@@ -56,19 +91,22 @@ export default function Home() {
             {[
               {
                 title: "Competitive Programming",
-                description: "Regular contests, practice sessions, and algorithm workshops to sharpen your coding skills.",
-                icon: "💻"
+                description:
+                  "Regular contests, practice sessions, and algorithm workshops to sharpen your coding skills.",
+                icon: "💻",
               },
               {
                 title: "Community Events",
-                description: "Hackathons, coding competitions, and collaborative learning sessions with peers.",
-                icon: "🚀"
+                description:
+                  "Hackathons, coding competitions, and collaborative learning sessions with peers.",
+                icon: "🚀",
               },
               {
                 title: "Skill Development",
-                description: "Learn from industry experts, improve problem-solving abilities, and build your portfolio.",
-                icon: "📚"
-              }
+                description:
+                  "Learn from industry experts, improve problem-solving abilities, and build your portfolio.",
+                icon: "📚",
+              },
             ].map((feature, index) => (
               <div
                 key={index}
@@ -80,6 +118,40 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Blogs Section */}
+      <section ref={blogsRef}>
+        <div className="flex justify-center mt-5 ">
+          <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
+            OUR BLOGS_
+          </h2>
+        </div>
+
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 sm:gap-[15px] md:gap-[30px] w-[85vw] md:w-[91vw] mx-auto mt-5 mb-[50px]">
+          {blogdata.slice(0, cardsShown).map((item, id) => (
+            <BlogCard
+              key={item.id}
+              title={item.title}
+              excerpt={item.excerpt}
+              image={item.image}
+              slug={item.slug}
+              category={item.category}
+              date={item.date}
+              author={item.author}
+              readTime={item.readTime}
+            />
+          ))}
+        </div>
+
+        <div className="flex justify-center items-center mb-[80px] ">
+          <button
+            onClick={handleCardsShown}
+            className="bg-gray-700 w-[150px] py-3 hover:bg-gray-800 transition-all duration-300"
+          >
+            {cardsShown === 3 ? "View more" : "View less"}
+          </button>
         </div>
       </section>
     </div>
