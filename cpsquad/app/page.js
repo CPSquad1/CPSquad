@@ -62,7 +62,7 @@ export default function Home() {
       {/* Features Section */}
       <section
         id="features"
-        className="min-h-screen flex items-center justify-center p-8"
+        className="min-h-screen flex items-center justify-center p-8 mb-[50px]"
       >
         <div className="max-w-6xl w-full">
           <h2 className="text-4xl md:text-6xl font-bold mb-12 text-center tracking-tight">
@@ -103,14 +103,15 @@ export default function Home() {
       </section>
 
       {/* Blogs Section */}
-      <section className="w-[85vw] mx-auto">
-        <div className="flex justify-center mt-5 ">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
+      <section id="blogs" className="px-[25px] sm:px-6 lg:px-8 max-w-[1200px] mx-auto ">
+        <div className="flex justify-center  ">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
             OUR BLOGS_
           </h2>
         </div>
 
-        <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 sm:gap-[15px] md:gap-[30px]  mx-auto mt-5 mb-[50px] max-w-[1200px]">
+        <div className="grid gap-6 sm:gap-8 lg:gap-10 
+                sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 mb-12">
           {blogdata.slice(0, 3).map((item, id) => (
             <BlogCard
               key={item.id}
