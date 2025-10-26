@@ -3,28 +3,9 @@ import Image from "next/image";
 import React, { useState, useRef } from "react";
 import BlogCard from "./component/BlogCard/BlogCard";
 import blogdata from "./lib/data/blogdata.js";
+import Link from "next/link";
 
 export default function Home() {
-  const [cardsShown, setCardsShown] = useState(3);
-  const blogsRef = useRef(null);
-  const [scrollToBlogs, setScrollToBlogs] = useState(false);
-
-  function handleCardsShown() {
-    if (cardsShown === 3) {
-      setCardsShown(blogdata.length);
-    } else {
-      setCardsShown(3);
-    }
-    setScrollToBlogs(true);
-  }
-
-  React.useEffect(() => {
-    if (scrollToBlogs) {
-      blogsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      setScrollToBlogs(false);
-    }
-  }, [scrollToBlogs]);
-
   return (
     <div className="font-sans bg-[#0a0a0a] text-white">
       {/* Hero Section */}
@@ -122,15 +103,15 @@ export default function Home() {
       </section>
 
       {/* Blogs Section */}
-      <section ref={blogsRef}>
+      <section className="w-[85vw] mx-auto">
         <div className="flex justify-center mt-5 ">
           <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
             OUR BLOGS_
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 sm:gap-[15px] md:gap-[30px] w-[85vw] md:w-[91vw] mx-auto mt-5 mb-[50px]">
-          {blogdata.slice(0, cardsShown).map((item, id) => (
+        <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 sm:gap-[15px] md:gap-[30px]  mx-auto mt-5 mb-[50px] max-w-[1200px]">
+          {blogdata.slice(0, 3).map((item, id) => (
             <BlogCard
               key={item.id}
               title={item.title}
@@ -144,15 +125,13 @@ export default function Home() {
             />
           ))}
         </div>
-
-        <div className="flex justify-center items-center mb-[80px] ">
-          <button
-            onClick={handleCardsShown}
-            className="bg-gray-700 w-[150px] py-3 hover:bg-gray-800 transition-all duration-300"
-          >
-            {cardsShown === 3 ? "View more" : "View less"}
-          </button>
-        </div>
+        <Link href="/blogs">
+          <div className="flex justify-center items-center mb-[80px] ">
+            <button className="bg-gray-700 w-[150px] py-3 hover:bg-gray-800 transition-all duration-300">
+              View more
+            </button>
+          </div>
+        </Link>
       </section>
     </div>
   );

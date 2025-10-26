@@ -17,7 +17,7 @@ const BlogCard = ({
   return (
     <div
       key={id}
-      className="relative h-[420px] sm:h-[480px] overflow-hidden mb-[50px]
+      className="relative h-[400px] sm:h-[480px] overflow-hidden mb-[50px]
       bg-[#1e1e1e]
       group transform transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]
       opacity-0 translate-y-8 animate-fadeUp
