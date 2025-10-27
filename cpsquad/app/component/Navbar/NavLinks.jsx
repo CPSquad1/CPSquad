@@ -7,8 +7,8 @@ const NavLink = ({ href, pathname, children }) => {
       href={href}
       className={`pb-1 transition-colors border-b-2 ${
         isActive
-          ? "text-white border-accent"
-          : "text-gray-300 border-transparent hover:text-white hover:border-accent"
+          ? "text-white border-green-500"
+          : "text-gray-300 border-transparent hover:text-white hover:border-green-500"
       }`}
     >
       {children}
