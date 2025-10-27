@@ -25,11 +25,6 @@ const NavLinks = ({ pathname }) => {
 
   return (
     <div className="hidden md:flex items-center space-x-8">
-      {pathname !== "/" && (
-        <NavLink href="/" pathname={pathname}>
-          Home
-        </NavLink>
-      )}
       {links.map((link) => (
         <NavLink key={link.href} href={link.href} pathname={pathname}>
           {link.label}

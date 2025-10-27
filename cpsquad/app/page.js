@@ -1,4 +1,9 @@
+"use client";
 import Image from "next/image";
+import React, { useState, useRef } from "react";
+import BlogCard from "./component/BlogCard/BlogCard";
+import blogdata from "./lib/data/blogdata.js";
+import Link from "next/link";
 
 export default function Home() {
   return (

@@ -55,10 +55,10 @@ Create a professional, visually stunning website for CP Squad that showcases our
 - Monospace fonts for technical feel
 - Hover effects with smooth transitions
 
-**Color Scheme (from Delta):**
+**Color Scheme (similar to Delta):**
 - Background: Very dark (`#0a0a0a`, `#111111`)
 - Text: White/Off-white (`#ffffff`, `#f5f5f5`)
-- Accent: Bright colors (use CP Squad's logo colours for highlights)
+- Accent: Bright colors (`#5b278d`, `#a93eff`)
 - Cards: Subtle dark grey (`#1a1a1a`, `#252525`)
 
 **Typography Style:**
@@ -297,7 +297,9 @@ cp-squad-website/
 --text-muted: #666666;        /* Muted text */
 
 /* Accent Colors */
-Use CP Squad's logo colours for reference
+--accent-dark-purple: #5b278d   /* Primary accent */ 
+--accent-light-purple: #a93eff  /* Secondary accent */
+
 
 /* Status Colors */
 --success: #10b981;
