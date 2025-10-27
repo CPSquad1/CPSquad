@@ -1,10 +1,18 @@
+"use client";
 import Image from "next/image";
+import React, { useState, useRef } from "react";
+import BlogCard from "./component/BlogCard/BlogCard";
+import blogdata from "./lib/data/blogdata.js";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="font-sans bg-[#0a0a0a] text-white">
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center p-8">
+      <section
+        id="hero"
+        className="min-h-screen flex items-center justify-center p-8"
+      >
         <div className="text-center max-w-4xl">
           <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
             CP SQUAD_
@@ -30,24 +38,32 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="min-h-screen flex items-center justify-center p-8 bg-[#111111]">
+      <section
+        id="about"
+        className="min-h-screen flex items-center justify-center p-8 bg-[#111111]"
+      >
         <div className="max-w-4xl">
           <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">
             ABOUT US_
           </h2>
           <p className="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
-            We're coders, enthusiasts, geeks. We're CP Squad - a community dedicated to 
-            building competitive programming skills and fostering a culture of continuous learning.
+            We're coders, enthusiasts, geeks. We're CP Squad - a community
+            dedicated to building competitive programming skills and fostering a
+            culture of continuous learning.
           </p>
           <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
-            Fueled by a passion for programming and problem-solving, our club doesn't just 
-            build skills, we delve deeper into algorithms, data structures, and competitive programming strategies.
+            Fueled by a passion for programming and problem-solving, our club
+            doesn't just build skills, we delve deeper into algorithms, data
+            structures, and competitive programming strategies.
           </p>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="min-h-screen flex items-center justify-center p-8">
+      <section
+        id="features"
+        className="min-h-screen flex items-center justify-center p-8 mb-[50px]"
+      >
         <div className="max-w-6xl w-full">
           <h2 className="text-4xl md:text-6xl font-bold mb-12 text-center tracking-tight">
             WHAT WE DO_
@@ -56,19 +72,22 @@ export default function Home() {
             {[
               {
                 title: "Competitive Programming",
-                description: "Regular contests, practice sessions, and algorithm workshops to sharpen your coding skills.",
-                icon: "💻"
+                description:
+                  "Regular contests, practice sessions, and algorithm workshops to sharpen your coding skills.",
+                icon: "💻",
               },
               {
                 title: "Community Events",
-                description: "Hackathons, coding competitions, and collaborative learning sessions with peers.",
-                icon: "🚀"
+                description:
+                  "Hackathons, coding competitions, and collaborative learning sessions with peers.",
+                icon: "🚀",
               },
               {
                 title: "Skill Development",
-                description: "Learn from industry experts, improve problem-solving abilities, and build your portfolio.",
-                icon: "📚"
-              }
+                description:
+                  "Learn from industry experts, improve problem-solving abilities, and build your portfolio.",
+                icon: "📚",
+              },
             ].map((feature, index) => (
               <div
                 key={index}
@@ -81,6 +100,39 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* Blogs Section */}
+      <section id="blogs" className="px-[25px] sm:px-6 lg:px-8 max-w-[1200px] mx-auto ">
+        <div className="flex justify-center  ">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
+            OUR BLOGS_
+          </h2>
+        </div>
+
+        <div className="grid gap-6 sm:gap-8 lg:gap-10 
+                sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 mb-12">
+          {blogdata.slice(0, 3).map((item, id) => (
+            <BlogCard
+              key={item.id}
+              title={item.title}
+              excerpt={item.excerpt}
+              image={item.image}
+              slug={item.slug}
+              category={item.category}
+              date={item.date}
+              author={item.author}
+              readTime={item.readTime}
+            />
+          ))}
+        </div>
+        <Link href="/blogs">
+          <div className="flex justify-center items-center mb-[80px] ">
+            <button className="bg-gray-700 w-[150px] py-3 hover:bg-gray-800 transition-all duration-300">
+              View more
+            </button>
+          </div>
+        </Link>
       </section>
     </div>
   );
