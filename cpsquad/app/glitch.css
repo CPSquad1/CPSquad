@@ -1,0 +1,323 @@
+/* Performance Optimization - Hardware Acceleration */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Matrix Rain Glow Effect - Optimized */
+@keyframes matrix-glow {
+  0%, 100% {
+    filter: brightness(1) blur(0.3px);
+  }
+  50% {
+    filter: brightness(1.3) blur(0.5px);
+  }
+}
+
+/* Matrix Character Flicker - Optimized */
+@keyframes matrix-flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Import Chava Font */
+/*@import url('https://fonts.googleapis.com/css2?family=Chava&display=swap');*/
+
+/* Matrix Background Subtle Pulse */
+@keyframes matrix-pulse-bg {
+  0%, 100% {
+    opacity: 0.6;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.7;
+    filter: brightness(1.1);
+  }
+}
+
+/* Matrix Background Flickering */
+@keyframes matrix-flicker-bg {
+  0%, 90%, 100% {
+    opacity: 0.6;
+  }
+  92%, 96% {
+    opacity: 0.4;
+  }
+  94%, 98% {
+    opacity: 0.65;
+  }
+}
+
+.matrix-background {
+  animation: matrix-pulse-bg 4s ease-in-out infinite, matrix-flicker-bg 8s ease-in-out infinite;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.matrix-background-static {
+  animation: matrix-pulse-bg 6s ease-in-out infinite;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+.matrix-background-filled {
+  animation: matrix-pulse-bg 4s ease-in-out infinite, matrix-flicker-bg 6s ease-in-out infinite;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Yellow Border Pulse Animation */
+@keyframes border-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(255, 235, 59, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 235, 59, 0.9));
+  }
+}
+
+/* Delta Frame Glow */
+@keyframes frame-glow {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.matrix-rain-container {
+  animation: matrix-glow 2s ease-in-out infinite;
+}
+
+/* Glitch Keyframes for the large text (CP SQUAD) - Subtle effect */
+@keyframes glitch {
+  0%, 90%, 100% {
+    transform: translate(0);
+  }
+  92% {
+    transform: translate(-2px, 2px);
+  }
+  94% {
+    transform: translate(2px, -2px);
+  }
+  96% {
+    transform: translate(-2px, -2px);
+  }
+  98% {
+    transform: translate(2px, 2px);
+  }
+}
+
+/* Glitch Keyframes for the typing cursor (_ character) */
+@keyframes glitch-cursor {
+  0% {
+    text-shadow: 2px 0 #00ff00, -2px 0 #00ffc4;
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+  25% {
+    text-shadow: 4px 0 #00ff00, -4px 0 #00ffc4;
+    opacity: 0.8;
+    clip-path: inset(0 50% 0 0);
+  }
+  50% {
+    text-shadow: -2px 0 #00ff00, 2px 0 #00ffc4;
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+  75% {
+    text-shadow: 0 5px #00ff00, 0 -5px #00ffc4;
+    opacity: 0.7;
+    clip-path: inset(50% 0 0 0);
+  }
+  100% {
+    text-shadow: 2px 0 #00ff00, -2px 0 #00ffc4;
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Cursor Blink Keyframes */
+@keyframes blink-cursor {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Glitch Title Styling - Clean & Optimized for all screen sizes */
+.glitch-text {
+  position: relative;
+  font-family: 'Chava', monospace, 'Courier New', Courier; 
+  font-size: clamp(2.5rem, 8vw, 7rem);
+  font-weight: 400;
+  color: white;
+  animation: glitch 4s infinite alternate;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  will-change: transform;
+  text-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 40px rgba(0, 255, 196, 0.3);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Tablet optimization */
+@media (max-width: 1024px) {
+  .glitch-text {
+    font-size: clamp(2rem, 10vw, 5rem);
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 640px) {
+  .glitch-text {
+    font-size: clamp(1.75rem, 12vw, 3.5rem);
+    letter-spacing: 0.03em;
+  }
+}
+
+/* Pseudo-elements for the color-separated glitch effect - Subtle */
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c4;
+  clip-path: inset(20% 0 70% 0);
+  animation: glitch 4s infinite alternate-reverse, glitch-flicker 4s infinite;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ffc4;
+  clip-path: inset(40% 0 55% 0);
+  animation: glitch 4s infinite alternate, glitch-flicker 4s infinite 0.2s;
+}
+
+/* Glitch flicker animation */
+@keyframes glitch-flicker {
+  0%, 89%, 100% {
+    opacity: 0;
+  }
+  90%, 99% {
+    opacity: 0.8;
+  }
+}
+
+/* Glitch Cursor Styling - Optimized */
+.glitch-cursor {
+  display: inline-block;
+  color: #00ffc4;
+  text-shadow: 2px 0 #00ff00, -2px 0 #00ffc4;
+  animation: glitch-cursor 0.5s infinite alternate, blink-cursor 0.7s infinite step-end;
+  will-change: opacity, text-shadow;
+}
+
+/* Typing Subtitle Styling - Fully Responsive & Optimized */
+.typing-text {
+  font-family: 'Chava', monospace, 'Courier New', Courier;
+  font-size: clamp(0.875rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: #00ffc4;
+  margin-top: 20px;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  min-height: 2em;
+  display: inline-block;
+  will-change: contents;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Revealed text styling */
+.typing-text-revealed {
+  font-family: 'Chava', monospace;
+  color: #00ffc4;
+  text-shadow: 0 0 8px rgba(0, 255, 196, 0.5);
+}
+
+/* Encrypted text styling */
+.typing-text-encrypted {
+  font-family: 'Chava', monospace;
+  color: #00ff00;
+  opacity: 0.6;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+/* Tablet optimization */
+@media (max-width: 1024px) {
+  .typing-text {
+    font-size: clamp(0.75rem, 3vw, 1.25rem);
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 640px) {
+  .typing-text {
+    font-size: clamp(0.75rem, 4vw, 1rem);
+    letter-spacing: 0.03em;
+    line-height: 1.8;
+  }
+}
+
+/* Delta Frame Responsive Styling */
+.delta-frame {
+  transition: all 0.3s ease;
+}
+
+.delta-outer-border {
+  vector-effect: non-scaling-stroke;
+}
+
+/* Responsive stroke widths for delta frame */
+@media (max-width: 640px) {
+  .delta-frame svg path,
+  .delta-frame svg line {
+    stroke-width: 0.5 !important;
+  }
+  
+  .delta-outer-border {
+    stroke-width: 0.6 !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .delta-frame svg path,
+  .delta-frame svg line {
+    stroke-width: 0.4 !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .delta-frame svg path,
+  .delta-frame svg line {
+    stroke-width: 0.3 !important;
+  }
+}

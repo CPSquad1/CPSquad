@@ -12,7 +12,6 @@ const ScrollSidebar = () => {
     { id: "hero", label: "Home" },
     { id: "about", label: "About" },
     { id: "features", label: "Features" },
-    { id: "blogs", label: "Blogs" },
     { id: "footer", label: "Contact" },
   ];
 
