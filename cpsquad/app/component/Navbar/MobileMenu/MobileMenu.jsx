@@ -25,7 +25,7 @@ const MobileMenu = ({ pathname, closeMenu }) => {
     { href: "/", label: "Home" },
     { href: "/events", label: "Events" },
     { href: "/members", label: "Members" },
-    { href: "/blogs", label: "Blogs" },
+    { href: "/Blog-section", label: "Blogs" },
   ];
 
   const containerVariants = {

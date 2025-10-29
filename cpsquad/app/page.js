@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState, useRef } from "react";
 import BlogCard from "./component/BlogCard/BlogCard";
 import blogdata from "./lib/data/blogdata.js";
+import BlogSection from "./Blog-section/page";
 import Link from "next/link";
 
 export default function Home() {
@@ -103,37 +104,7 @@ export default function Home() {
       </section>
 
       {/* Blogs Section */}
-      <section id="blogs" className="px-[25px] sm:px-6 lg:px-8 max-w-[1200px] mx-auto ">
-        <div className="flex justify-center  ">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-            OUR BLOGS_
-          </h2>
-        </div>
-
-        <div className="grid gap-6 sm:gap-8 lg:gap-10 
-                sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 mb-12">
-          {blogdata.slice(0, 3).map((item, id) => (
-            <BlogCard
-              key={item.id}
-              title={item.title}
-              excerpt={item.excerpt}
-              image={item.image}
-              slug={item.slug}
-              category={item.category}
-              date={item.date}
-              author={item.author}
-              readTime={item.readTime}
-            />
-          ))}
-        </div>
-        <Link href="/blogs">
-          <div className="flex justify-center items-center mb-[80px] ">
-            <button className="bg-gray-700 w-[150px] py-3 hover:bg-gray-800 transition-all duration-300">
-              View more
-            </button>
-          </div>
-        </Link>
-      </section>
+      <BlogSection />
     </div>
   );
 }
