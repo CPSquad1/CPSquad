@@ -142,8 +142,105 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Projects Gallery Section - Sticky Horizontal Scroll */}
+      <section id="projects" className="h-[500vh] bg-black relative">
+        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-8">
+          <div className="w-full px-4 sm:px-6">
+            {/* Header */}
+            <div className="mb-8 md:mb-10">
+              <h3 className="text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wider text-gray-500">
+                PROJECTS •
+              </h3>
+              <p className="text-sm sm:text-base text-gray-300 max-w-5xl">
+                The work we do ranges from games, applications to CLI tools - if you can imagine it, we can build it. The most recent projects are listed below -
+              </p>
+            </div>
+
+            {/* Centered Carousel Container - Wider with less margins */}
+            <div className="mx-auto" style={{ width: '85%' }}>
+              <div className="bg-[#0a0a0a] rounded-xl p-6 sm:p-8 md:p-10 border border-gray-800">
+                <div 
+                  id="carousel-track"
+                  className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-scroll pb-4 transition-transform duration-300"
+                  style={{ 
+                    scrollSnapType: 'x mandatory',
+                    scrollBehavior: 'smooth'
+                  }}
+                >
+                  {[
+                    { image: "/gallery/image.png" },
+                    { image: "/gallery/image1.png" },
+                    { image: "/gallery/image2.png" },
+                    { image: "/gallery/image3.png" },
+                    { image: "/gallery/image4.png" }
+                  ].map((project, index) => (
+                    <div
+                      key={index}
+                      className="flex-none w-[220px] sm:w-[260px] md:w-[300px] lg:w-[340px] group cursor-pointer"
+                      style={{ scrollSnapAlign: 'start' }}
+                    >
+                      <div className="relative h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] rounded-lg overflow-hidden bg-[#1a2332] transition-all duration-300 hover:scale-[1.02]">
+                        <Image
+                          src={project.image}
+                          alt={`Project ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 220px, (max-width: 768px) 260px, (max-width: 1024px) 300px, 340px"
+                        />
+                        
+                        <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#00FF41]/60 transition-colors duration-300 rounded-lg pointer-events-none"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="absolute right-8 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none hidden lg:block">
+              <div className="flex flex-col items-center gap-2 text-xs">
+                <span style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>Scroll</span>
+                <svg className="w-4 h-4 animate-bounce" style={{ animationDirection: 'alternate', transform: 'rotate(-90deg)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <script dangerouslySetInnerHTML={{__html: `
+        (function() {
+          let lastScrollY = 0;
+          const projectsSection = document.getElementById('projects');
+          const carouselTrack = document.getElementById('carousel-track');
+          
+          if (!projectsSection || !carouselTrack) return;
+          
+          function updateCarousel() {
+            const sectionRect = projectsSection.getBoundingClientRect();
+            const sectionHeight = projectsSection.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            
+            // Calculate scroll progress through the section (0 to 1)
+            const scrollProgress = Math.max(0, Math.min(1, 
+              (window.scrollY - projectsSection.offsetTop) / (sectionHeight - viewportHeight)
+            ));
+            
+            // Calculate how much to scroll the carousel
+            const maxScroll = carouselTrack.scrollWidth - carouselTrack.clientWidth;
+            const scrollAmount = scrollProgress * maxScroll;
+            
+            carouselTrack.scrollLeft = scrollAmount;
+          }
+          
+          window.addEventListener('scroll', updateCarousel, { passive: true });
+          updateCarousel();
+        })();
+      `}} />
+
       {/* Blogs Section */}
-        <section id="blogs" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12 sm:py-16 md:py-20">
+        <section id="blogs" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12 sm:py-16 md:py-20 bg-[#0a0a0a]">
         <div className="flex justify-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
             OUR BLOGS_
