@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import BlogCard from "../component/BlogCard/BlogCard.jsx";
 import blogdata from "./lib/data/blogdata.js";
 import Link from "next/link";
@@ -8,6 +8,38 @@ import ParticleBackground from "../component/ParticleBackground/ParticleBackgrou
 import HeroText from "../component/HeroText/HeroText.jsx";
 
 export default function Home() {
+  const carouselRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !carouselRef.current) return;
+
+      const section = sectionRef.current;
+      const carousel = carouselRef.current;
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+
+      // Calculate scroll progress through the section (0 to 1)
+      const scrollProgress = Math.max(0, Math.min(1,
+        (scrollY - sectionTop) / (sectionHeight - viewportHeight)
+      ));
+
+      // Calculate how much to scroll the carousel
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      const scrollAmount = scrollProgress * maxScroll;
+
+      carousel.scrollLeft = scrollAmount;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="font-sans bg-[#0a0a0a] text-white">
 
@@ -143,7 +175,7 @@ export default function Home() {
       </section>
 
       {/* Projects Gallery Section - Sticky Horizontal Scroll */}
-      <section id="projects" className="h-[500vh] bg-black relative">
+      <section ref={sectionRef} id="projects" className="h-[500vh] bg-black relative">
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-8">
           <div className="w-full px-4 sm:px-6">
             {/* Header */}
@@ -160,11 +192,10 @@ export default function Home() {
             <div className="mx-auto" style={{ width: '85%' }}>
               <div className="bg-[#0a0a0a] rounded-xl p-6 sm:p-8 md:p-10 border border-gray-800">
                 <div 
-                  id="carousel-track"
-                  className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-scroll pb-4 transition-transform duration-300"
+                  ref={carouselRef}
+                  className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-hidden pb-4"
                   style={{ 
-                    scrollSnapType: 'x mandatory',
-                    scrollBehavior: 'smooth'
+                    scrollBehavior: 'auto'
                   }}
                 >
                   {[
@@ -208,36 +239,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
-      <script dangerouslySetInnerHTML={{__html: `
-        (function() {
-          let lastScrollY = 0;
-          const projectsSection = document.getElementById('projects');
-          const carouselTrack = document.getElementById('carousel-track');
-          
-          if (!projectsSection || !carouselTrack) return;
-          
-          function updateCarousel() {
-            const sectionRect = projectsSection.getBoundingClientRect();
-            const sectionHeight = projectsSection.offsetHeight;
-            const viewportHeight = window.innerHeight;
-            
-            // Calculate scroll progress through the section (0 to 1)
-            const scrollProgress = Math.max(0, Math.min(1, 
-              (window.scrollY - projectsSection.offsetTop) / (sectionHeight - viewportHeight)
-            ));
-            
-            // Calculate how much to scroll the carousel
-            const maxScroll = carouselTrack.scrollWidth - carouselTrack.clientWidth;
-            const scrollAmount = scrollProgress * maxScroll;
-            
-            carouselTrack.scrollLeft = scrollAmount;
-          }
-          
-          window.addEventListener('scroll', updateCarousel, { passive: true });
-          updateCarousel();
-        })();
-      `}} />
 
       {/* Blogs Section */}
         <section id="blogs" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12 sm:py-16 md:py-20 bg-[#0a0a0a]">

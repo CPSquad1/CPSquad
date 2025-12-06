@@ -43,13 +43,13 @@ const Footer = () => {
             </h3>
             <div className="space-y-3 md:space-y-4 text-gray-300 mb-6 md:mb-8">
               <p className="text-sm md:text-base leading-relaxed">
-                Sunlabs, Octagon,<br />
-                NIT Trichy, Tamil Nadu,<br />
+                KDPIT,CSPIT<br />
+                CHARUSAT, Gujarat,<br />
                 India
               </p>
               <div className="space-y-2">
-                <p className="text-sm md:text-base">cpsquad@nitt.edu</p>
-                <p className="text-sm md:text-base">cpsquad.nitt@gmail.com</p>
+                <p className="text-sm md:text-base">cpsquad@charusat.ac.in</p>
+                <p className="text-sm md:text-base">cpsquad@gmail.com</p>
               </div>
             </div>
             <p className="text-xs md:text-sm text-gray-500">
@@ -94,6 +94,54 @@ const Footer = () => {
                   </a>
                 );
               })}
+            </div>
+          </div>
+        </div>
+
+        {/* Contributors Section */}
+        <div className="relative z-10 mt-12 md:mt-16 pt-8 border-t border-gray-800">
+          <div className="flex flex-col items-center">
+            <p className="text-xs md:text-sm text-gray-400 mb-6 uppercase tracking-wider">
+              BUILT BY
+            </p>
+            <div className="flex gap-6 sm:gap-8 md:gap-10">
+              {[
+                {
+                  github: 'DevSsChar',
+                  name: 'Dev Shah',
+                  avatar: 'https://github.com/DevSsChar.png'
+                },
+                {
+                  github: 'UtsavSavani08',
+                  name: 'Utsav Savani',
+                  avatar: 'https://github.com/UtsavSavani08.png'
+                }
+              ].map((contributor) => (
+                <a
+                  key={contributor.github}
+                  href={`https://github.com/${contributor.github}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center group transition-transform duration-300 hover:scale-105"
+                >
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-gray-700 group-hover:border-[#00FF41] transition-colors duration-300"
+                       style={{ boxShadow: '0 0 0 rgba(0, 255, 65, 0)' }}
+                       onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.5)'}
+                       onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 0 rgba(0, 255, 65, 0)'}>
+                    <img
+                      src={contributor.avatar}
+                      alt={contributor.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <p className="mt-3 text-xs sm:text-sm md:text-base text-gray-300 group-hover:text-[#00FF41] transition-colors duration-300 font-medium">
+                    {contributor.name}
+                  </p>
+                  <p className="text-[10px] sm:text-xs text-gray-500">
+                    @{contributor.github}
+                  </p>
+                </a>
+              ))}
             </div>
           </div>
         </div>
