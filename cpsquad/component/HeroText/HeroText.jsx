@@ -109,8 +109,8 @@ export default function HeroText() {
   };
 
   return (
-    <div className="text-center max-w-4xl relative z-10">
-      <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-[0.3em] font-[family-name:var(--font-poppins)] flex justify-center items-center h-[70px] md:h-[160px] uppercase">
+    <div className="text-center max-w-[95vw] sm:max-w-[90vw] md:max-w-4xl lg:max-w-5xl xl:max-w-6xl relative z-10 px-2 sm:px-4">
+      <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-4 sm:mb-6 md:mb-8 tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.25em] lg:tracking-[0.3em] font-[family-name:var(--font-poppins)] flex justify-center items-center h-[60px] xs:h-[70px] sm:h-[90px] md:h-[120px] lg:h-[150px] xl:h-[180px] uppercase">
         {letters.map((letter, index) => (
           <span
             key={index}
@@ -118,7 +118,8 @@ export default function HeroText() {
             style={{
               transform: `translateY(${letter.y}px)`,
               opacity: letter.delayCounter >= letter.delay ? 1 : 0,
-              transition: 'opacity 0.2s'
+              transition: 'opacity 0.2s',
+              textShadow: '0 0 15px 0 0 30px #00FF41, 0 0 45px #00FF41'
             }}
           >
             {letter.char}
@@ -127,13 +128,13 @@ export default function HeroText() {
         <span 
           className="inline-block text-[#fcfcfc] animate-pulse"
           style={{
-            textShadow: '0 0 10px #00FF41, 0 0 20px #00FF41'
+            textShadow: '0 0 15px #00FF41, 0 0 30px #00FF41'
           }}
         >_</span>
       </h1>
-      <p className="text-4xl md:text-4xl mb-8 h-[80px] md:h-[100px] flex items-center justify-center text-[#00FF41] tracking-wide font-[family-name:var(--font-pixelify-sans)]"
+      <p className="text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6 sm:mb-8 md:mb-10 h-[60px] xs:h-[70px] sm:h-[80px] md:h-[90px] lg:h-[110px] flex items-center justify-center text-[#00FF41] tracking-wide font-[family-name:var(--font-pixelify-sans)] px-2 sm:px-4"
          style={{
-           textShadow: '0 0 8px #00FF41, 0 0 15px #00FF41',
+           textShadow: '0 0 10px #00FF41, 0 0 20px #00FF41, 0 0 30px #00FF41',
            filter: 'brightness(1.1)'
          }}>
         {decodedText}

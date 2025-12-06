@@ -25,7 +25,20 @@ export default function ParticleBackground() {
         this.baseY = y;
         this.x = x;
         this.y = -200 - Math.random() * 200;
-        const particleSize = canvas.width < 640 ? 2 : canvas.width < 1024 ? 2.5 : 3;
+        let particleSize;
+        if (canvas.width < 480) {
+          particleSize = 1.8;
+        } else if (canvas.width < 640) {
+          particleSize = 2;
+        } else if (canvas.width < 768) {
+          particleSize = 2.2;
+        } else if (canvas.width < 1024) {
+          particleSize = 2.5;
+        } else if (canvas.width < 1280) {
+          particleSize = 2.8;
+        } else {
+          particleSize = 3;
+        }
         this.size = particleSize;
         this.density = (Math.random() * 30) + 1;
         this.baseSize = particleSize;
@@ -60,7 +73,20 @@ export default function ParticleBackground() {
         if (this.delayCounter >= this.fallDelay || animationPhaseRef.current !== 'entry') {
           if (animationPhaseRef.current === 'entry' && !this.hasLanded) {
             // Matrix rain effect - draw trailing characters
-            const fontSize = canvas.width < 640 ? 10 : canvas.width < 1024 ? 12 : 14;
+            let fontSize;
+            if (canvas.width < 480) {
+              fontSize = 9;
+            } else if (canvas.width < 640) {
+              fontSize = 10;
+            } else if (canvas.width < 768) {
+              fontSize = 11;
+            } else if (canvas.width < 1024) {
+              fontSize = 12;
+            } else if (canvas.width < 1280) {
+              fontSize = 13;
+            } else {
+              fontSize = 14;
+            }
             ctx.font = `${fontSize}px monospace`;
             ctx.textAlign = 'center';
             
@@ -187,14 +213,41 @@ export default function ParticleBackground() {
       
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      // Responsive sizing based on viewport
+      // Responsive sizing based on viewport with more granular breakpoints
       const baseSize = Math.min(canvas.width, canvas.height);
-      const symbolSize = canvas.width < 640 ? baseSize * 0.7 : 
-                        canvas.width < 1024 ? baseSize * 0.85 : baseSize * 1;
+      let symbolSize, gap, thickness;
       
-      // Responsive gap and thickness
-      const gap = canvas.width < 640 ? 15 : canvas.width < 1024 ? 18 : 20;
-      const thickness = canvas.width < 640 ? 60 : canvas.width < 1024 ? 75 : 90;
+      if (canvas.width < 480) {
+        // Extra small devices
+        symbolSize = baseSize * 0.65;
+        gap = 14;
+        thickness = 55;
+      } else if (canvas.width < 640) {
+        // Small mobile
+        symbolSize = baseSize * 0.7;
+        gap = 15;
+        thickness = 60;
+      } else if (canvas.width < 768) {
+        // Large mobile
+        symbolSize = baseSize * 0.75;
+        gap = 16;
+        thickness = 65;
+      } else if (canvas.width < 1024) {
+        // Tablet
+        symbolSize = baseSize * 0.85;
+        gap = 18;
+        thickness = 75;
+      } else if (canvas.width < 1280) {
+        // Small desktop
+        symbolSize = baseSize * 0.95;
+        gap = 19;
+        thickness = 85;
+      } else {
+        // Large desktop
+        symbolSize = baseSize * 1;
+        gap = 20;
+        thickness = 90;
+      }
       const particlesByRow = [];
       
       const rightAngle = symbolSize * 0.35;
