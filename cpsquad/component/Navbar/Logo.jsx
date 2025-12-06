@@ -8,9 +8,9 @@ const Logo = () => {
         src="/images/logo.png" //TODO: replace with actual logo once made available
 
         alt="CPSquadLogo"
-        width={40}
-        height={40}
-        className="h-10 w-auto"
+        width={50}
+        height={50}
+        className="h-12 w-auto"
       />
     </Link>
   );

@@ -35,7 +35,7 @@ const Navbar = () => {
   return (
     <>
       <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${scrolled ? "bg-background/80 backdrop-blur-sm" : "bg-transparent"}`}>
-        <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav className="container mx-auto px-8 py-6 flex justify-between items-center">
           <Logo />
           <NavLinks pathname={pathname} />
           <MobileMenuButton
