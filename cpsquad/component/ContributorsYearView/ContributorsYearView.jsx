@@ -31,16 +31,17 @@ const ContributorsYearView = ({ year }) => {
   // Generate random non-overlapping positions for contributors
   const generateRandomPositions = (count) => {
     const positions = [];
-    const minDistance = 15;
+    const minDistance = 12; // Reduced for more contributors to fit
     const logoArea = { x: 28, y: 50, radius: 18 };
     
     for (let i = 0; i < count; i++) {
       let attempts = 0;
       let position;
       
-      while (attempts < 150) {
-        const x = 48 + Math.random() * 40;
-        const y = 12 + Math.random() * 76;
+      while (attempts < 200) { // Increased attempts
+        // Generate random position with safe margins (x: 35-88%, y: 15-85%)
+        const x = 35 + Math.random() * 53;
+        const y = 15 + Math.random() * 70;
         
         const distanceToLogo = Math.sqrt(Math.pow(x - logoArea.x, 2) + Math.pow(y - logoArea.y, 2));
         if (distanceToLogo < logoArea.radius + minDistance) {
@@ -65,8 +66,15 @@ const ContributorsYearView = ({ year }) => {
         attempts++;
       }
       
+      // Grid fallback for better distribution
       if (!position) {
-        position = { top: 20 + (i * 8), left: 50 + (i % 5) * 8 };
+        const cols = Math.ceil(Math.sqrt(count));
+        const row = Math.floor(i / cols);
+        const col = i % cols;
+        position = { 
+          top: 15 + (row * 14), 
+          left: 38 + (col * 9) 
+        };
       }
       
       positions.push(position);
@@ -109,14 +117,14 @@ const ContributorsYearView = ({ year }) => {
         {/* Header */}
         <header className="pt-32 pb-12 px-4 sm:px-8">
           <div className="max-w-7xl mx-auto">
-            <Link href="/contributors">
+            {/* <Link href="/contributors">
               <button className="mb-8 px-6 py-3 bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-md border border-white/10 hover:border-[#00FF41]/30 rounded-full transition-all duration-300 flex items-center gap-2 group">
                 <svg className="w-5 h-5 text-[#00FF41] group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
                 <span className="text-white">Back to All Years</span>
               </button>
-            </Link>
+            </Link> */}
 
             <div className="flex items-center gap-6 mb-8">
               <div className="text-8xl sm:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#00FF41] to-[#00FF41]/40">
@@ -141,7 +149,7 @@ const ContributorsYearView = ({ year }) => {
         {/* Main Contributors Display */}
         <main className="px-4 sm:px-8 pb-20">
           <div className="max-w-7xl mx-auto">
-            <div className="relative w-full max-w-[1400px] aspect-[16/9] mx-auto">
+            <div className="relative w-full max-w-[1100px] aspect-[16/9] mx-auto">
               {/* Glass panel container */}
               <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
                 {/* Sidebar with year */}
@@ -159,13 +167,13 @@ const ContributorsYearView = ({ year }) => {
                 {/* Main content area */}
                 <div className="ml-20 relative h-full flex items-center justify-center overflow-hidden">
                   {/* Header */}
-                  <div className="absolute top-8 left-1/2 -translate-x-1/2 z-30">
+                  {/* <div className="absolute top-8 left-1/2 -translate-x-1/2 z-30">
                     <div className="px-12 py-3 bg-white/[0.05] backdrop-blur-md border border-[#00FF41]/20 rounded-full">
                       <h2 className="text-2xl font-bold tracking-[0.2em] uppercase text-white">
                         Contributors
                       </h2>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Center Logo */}
                   <div className="absolute left-32 top-1/2 -translate-y-1/2 w-64 h-64 flex items-center justify-center z-20">
@@ -202,13 +210,13 @@ const ContributorsYearView = ({ year }) => {
                       <>
                         {contributors.map((contributor, index) => (
                           <ContributorCard
-                            key={contributor.id}
+                            key={`year-${year}-${contributor.id}-${index}`} // Changed: Added year and index to ensure uniqueness
                             {...contributor}
                             position={{
                               top: `${contributorPositions[index]?.top || 50}%`,
                               left: `${contributorPositions[index]?.left || 50}%`
                             }}
-                            size="large"
+                            size="medium"
                           />
                         ))}
 
@@ -223,13 +231,13 @@ const ContributorsYearView = ({ year }) => {
                   </div>
 
                   {/* Bottom stats */}
-                  <div className="absolute bottom-6 right-6 flex items-center gap-4">
+                  {/* <div className="absolute bottom-6 right-6 flex items-center gap-4">
                     <div className="px-4 py-2 bg-white/[0.05] backdrop-blur-md border border-white/10 rounded-full">
                       <span className="text-xs text-slate-400 uppercase tracking-widest">
                         © {new Date().getFullYear()} CP Squad Development Team
                       </span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -237,11 +245,11 @@ const ContributorsYearView = ({ year }) => {
             {/* Contributors Grid - Detailed View */}
             {contributors.length > 0 && (
               <div className="mt-20">
-                <h3 className="text-3xl font-bold mb-10 text-center">Meet The Team</h3>
+                <h3 className="text-3xl font-bold mb-10 text-center">Meet The Contributors</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {contributors.map((contributor, index) => (
                     <div
-                      key={contributor.id}
+                      key={`grid-${year}-${contributor.id}-${index}`} // Changed: Added year and index to ensure uniqueness
                       className="p-6 bg-white/[0.02] backdrop-blur-sm border border-white/5 rounded-xl hover:border-[#00FF41]/30 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,65,0.1)] group opacity-0 translate-y-8 animate-fadeUp"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >

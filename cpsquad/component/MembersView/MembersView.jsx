@@ -124,7 +124,7 @@ const MembersView = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-12 gap-y-24">
                 {currentYearMembers.map((member, index) => (
                   <MemberCard 
-                    key={member.id}
+                    key={`member-${member.id}-${index}`} // Changed: Added index to ensure uniqueness
                     member={member}
                     currentYear={currentYear}
                     index={index}

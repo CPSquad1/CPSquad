@@ -7,20 +7,23 @@ const YearCard = ({ year, contributors = [] }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [imageErrors, setImageErrors] = useState({});
 
+  // Define size for avatars
+  const size = "w-20 h-20"; // Medium size for year card view
+
   // Generate random non-overlapping positions for contributors
   const generateRandomPositions = (count) => {
     const positions = [];
-    const minDistance = 15; // Increased minimum distance for larger circles
-    const logoArea = { x: 26, y: 50, radius: 18 }; // Larger logo avoidance area
+    const minDistance = 12; // Reduced for more contributors to fit
+    const logoArea = { x: 26, y: 50, radius: 18 }; // Logo avoidance area
     
     for (let i = 0; i < count; i++) {
       let attempts = 0;
       let position;
       
-      while (attempts < 150) {
-        // Generate random position on right side only (x: 48-88%, y: 12-88%)
-        const x = 48 + Math.random() * 40;
-        const y = 12 + Math.random() * 76;
+      while (attempts < 200) { // Increased attempts
+        // Generate random position with safe margins (x: 35-88%, y: 15-85%)
+        const x = 35 + Math.random() * 50;
+        const y = 15 + Math.random() * 65;
         
         // Check if position overlaps with logo
         const distanceToLogo = Math.sqrt(Math.pow(x - logoArea.x, 2) + Math.pow(y - logoArea.y, 2));
@@ -47,9 +50,15 @@ const YearCard = ({ year, contributors = [] }) => {
         attempts++;
       }
       
-      // If couldn't find non-overlapping position, use fallback
+      // If couldn't find non-overlapping position, use grid fallback
       if (!position) {
-        position = { top: 20 + (i * 8), left: 50 + (i % 5) * 8 };
+        const cols = Math.ceil(Math.sqrt(count));
+        const row = Math.floor(i / cols);
+        const col = i % cols;
+        position = { 
+          top: 15 + (row * 14), 
+          left: 38 + (col * 9) 
+        };
       }
       
       positions.push(position);
@@ -125,60 +134,59 @@ const YearCard = ({ year, contributors = [] }) => {
               ) : (
                 <>
                   {contributors.map((contributor, index) => {
-                    const position = { 
-                      top: `${contributorPositions[index]?.top || 50}%`, 
-                      left: `${contributorPositions[index]?.left || 50}%` 
+                    const position = {
+                      top: `${contributorPositions[index]?.top || 50}%`,
+                      left: `${contributorPositions[index]?.left || 50}%`,
                     };
-                    const size = "w-20 h-20"; // Larger circles (80px)
 
-                return (
-                  <div
-                    key={contributor.id || index}
-                    className="contributor-node absolute group/node cursor-pointer transition-all duration-500 z-10"
-                    style={position}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                  >
-                    {/* Avatar */}
-                    <div className={`relative ${size} rounded-full border-2 border-[#00FF41]/40 p-1 group-hover/node:border-[#00FF41] group-hover/node:shadow-[0_0_20px_rgba(0,255,65,0.6)] transition-all duration-300`}>
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
-                        {contributor.avatar && !imageErrors[contributor.id] ? (
-                          <img
-                            src={contributor.avatar}
-                            alt={contributor.name}
-                            className="w-full h-full object-cover"
-                            onError={() => setImageErrors(prev => ({ ...prev, [contributor.id]: true }))}
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-white text-sm font-bold">
-                            {contributor.name?.charAt(0) || "?"}
+                    return (
+                      <div
+                        key={`contributor-${contributor.id}-${index}`}
+                        className="contributor-node absolute group/node cursor-pointer transition-all duration-500 z-10"
+                        style={position}
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                      >
+                        {/* Avatar */}
+                        <div className={`relative ${size} rounded-full border-2 border-[#00FF41]/40 p-1 group-hover/node:border-[#00FF41] group-hover/node:shadow-[0_0_20px_rgba(0,255,65,0.6)] transition-all duration-300`}>
+                          <div className="w-full h-full rounded-full bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+                            {contributor.avatar && !imageErrors[contributor.id] ? (
+                              <img
+                                src={contributor.avatar}
+                                alt={contributor.name}
+                                className="w-full h-full object-cover"
+                                onError={() => setImageErrors(prev => ({ ...prev, [contributor.id]: true }))}
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-white text-sm font-bold">
+                                {contributor.name?.charAt(0) || "?"}
+                              </div>
+                            )}
+                            <div className="absolute inset-0 bg-[#00FF41]/20 opacity-0 group-hover/node:opacity-100 flex items-center justify-center transition-all duration-300">
+                              <svg className="w-1/2 h-1/2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                              </svg>
+                            </div>
                           </div>
-                        )}
-                        <div className="absolute inset-0 bg-[#00FF41]/20 opacity-0 group-hover/node:opacity-100 flex items-center justify-center transition-all duration-300">
-                          <svg className="w-1/2 h-1/2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                          </svg>
+                        </div>
+
+                        {/* Tooltip */}
+                        <div className={`tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-4 transition-all duration-300 pointer-events-none w-48 bg-black/90 backdrop-blur-md border border-[#00FF41]/30 p-4 rounded-lg z-50 ${hoveredIndex === index ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-2"}`}>
+                          <p className="text-white font-bold text-sm">{contributor.name}</p>
+                          <p className="text-[#00FF41] text-xs font-medium uppercase">
+                            {contributor.role || "Member"}
+                          </p>
                         </div>
                       </div>
-                    </div>
+                    );
+                  })}
 
-                    {/* Tooltip */}
-                    <div className={`tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-4 transition-all duration-300 pointer-events-none w-48 bg-black/90 backdrop-blur-md border border-[#00FF41]/30 p-4 rounded-lg z-50 ${hoveredIndex === index ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-2"}`}>
-                      <p className="text-white font-bold text-sm">{contributor.name}</p>
-                      <p className="text-[#00FF41] text-xs font-medium uppercase">
-                        {contributor.role || "Member"}
-                      </p>
-                    </div>
+                  {/* Decorative rings around logo only */}
+                  <div className="absolute inset-0 pointer-events-none opacity-10">
+                    <div className="absolute top-1/2 left-[26%] -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] border border-[#00FF41]/20 rounded-full"></div>
+                    <div className="absolute top-1/2 left-[26%] -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-[#00FF41]/10 rounded-full"></div>
                   </div>
-                );
-              })}
-
-              {/* Decorative rings around logo only */}
-              <div className="absolute inset-0 pointer-events-none opacity-10">
-                <div className="absolute top-1/2 left-[26%] -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] border border-[#00FF41]/20 rounded-full"></div>
-                <div className="absolute top-1/2 left-[26%] -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-[#00FF41]/10 rounded-full"></div>
-              </div>
-              </>
+                </>
               )}
             </div>
 
