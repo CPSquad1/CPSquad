@@ -24,7 +24,7 @@ const NavLinks = ({ pathname }) => {
     { href: "/events", label: "Events" },
     { href: "/contributors", label: "Contributors" },
     { href: "/members", label: "Members" },
-    { href: "/blogs", label: "Blogs" },
+    // { href: "/blogs", label: "Blogs" },
   ];
 
   return (

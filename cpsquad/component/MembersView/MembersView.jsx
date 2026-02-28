@@ -94,14 +94,14 @@ const MembersView = () => {
                 </span>
               </div>
 
-              <Link href="/contributors">
+              {/* <Link href="/contributors">
                 <button className="px-6 py-2 bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-md border border-white/10 hover:border-[#00FF41]/30 rounded-full transition-all duration-300 flex items-center gap-2 group">
                   <span className="text-white text-sm">View All Contributors</span>
                   <svg className="w-4 h-4 text-[#00FF41] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </header>

@@ -175,17 +175,17 @@ export default function Home() {
       </section>
 
       {/* Projects Gallery Section - Sticky Horizontal Scroll */}
-      <section ref={sectionRef} id="projects" className="h-[500vh] bg-black relative">
+      <section ref={sectionRef} id="events" className="h-[500vh] bg-black relative">
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden py-8">
           <div className="w-full px-4 sm:px-6">
             {/* Header */}
             <div className="mb-8 md:mb-10">
-              <h3 className="text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wider text-gray-500">
-                PROJECTS •
-              </h3>
-              <p className="text-sm sm:text-base text-gray-300 max-w-5xl">
+            <h3 className="text-xs sm:text-sm md:text-base lg:text-lg font-bold mb-4 sm:mb-5 md:mb-6 lg:mb-8 uppercase tracking-[0.2em] sm:tracking-[0.25em] text-gray-400">
+              Events •
+            </h3>
+              {/* <p className="text-sm sm:text-base text-gray-300 max-w-5xl">
                 The work we do ranges from games, applications to CLI tools - if you can imagine it, we can build it. The most recent projects are listed below -
-              </p>
+              </p> */}
             </div>
 
             {/* Centered Carousel Container - Wider with less margins */}
@@ -241,7 +241,7 @@ export default function Home() {
       </section>
 
       {/* Blogs Section */}
-        <section id="blogs" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12 sm:py-16 md:py-20 bg-[#0a0a0a]">
+        {/* <section id="blogs" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12 sm:py-16 md:py-20 bg-[#0a0a0a]">
         <div className="flex justify-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
             OUR BLOGS_
@@ -271,7 +271,7 @@ export default function Home() {
             </button>
           </div>
         </Link>
-        </section>
+        </section> */}
       {/* </section> */}
     </div>
   );
