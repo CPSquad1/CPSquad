@@ -151,21 +151,21 @@ export default function Home() {
               <div>
                 <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-[#00FF41] mb-2 sm:mb-3 md:mb-4" 
                      style={{ fontFamily: 'monospace', textShadow: '0 0 25px rgba(0, 255, 65, 0.6), 0 0 50px rgba(0, 255, 65, 0.3)' }}>
-                  50<span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">+</span>
+                  20<span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">+</span>
                 </div>
                 <div className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-400 uppercase tracking-wider">contests</div>
               </div>
               <div>
                 <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-[#00FF41] mb-2 sm:mb-3 md:mb-4" 
                      style={{ fontFamily: 'monospace', textShadow: '0 0 25px rgba(0, 255, 65, 0.6), 0 0 50px rgba(0, 255, 65, 0.3)' }}>
-                  200<span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">+</span>
+                  50<span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">+</span>
                 </div>
                 <div className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-400 uppercase tracking-wider">members</div>
               </div>
               <div>
                 <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-[#00FF41] mb-2 sm:mb-3 md:mb-4" 
                      style={{ fontFamily: 'monospace', textShadow: '0 0 25px rgba(0, 255, 65, 0.6), 0 0 50px rgba(0, 255, 65, 0.3)' }}>
-                  5<span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">+</span>
+                  3<span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">+</span>
                 </div>
                 <div className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-400 uppercase tracking-wider leading-tight">Years<br />of experience</div>
               </div>
