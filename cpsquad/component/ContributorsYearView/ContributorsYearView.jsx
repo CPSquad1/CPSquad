@@ -208,7 +208,7 @@ const ContributorsYearView = ({ year }) => {
                               top: `${contributorPositions[index]?.top || 50}%`,
                               left: `${contributorPositions[index]?.left || 50}%`
                             }}
-                            size="medium"
+                            size="large"
                           />
                         ))}
 
