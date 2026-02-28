@@ -13,7 +13,7 @@ const Footer = () => {
   const socialLinks = [
     {
       name: "Instagram",
-      href: "https://www.instagram.com/cpsquad_vitb/",
+      href: "https://www.instagram.com/competitive_programming_club?igsh=MWx1a2FmbjhpN3E3cA==",
       icon: FaInstagram,
     },
     {

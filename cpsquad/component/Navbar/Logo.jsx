@@ -12,6 +12,7 @@ const Logo = () => {
         height={50}
         className="h-12 w-auto"
       />
+      <p className="text-xl md:text-2xl font-bold text-[#ffffff]">CPSQUAD</p>
     </Link>
   );
 };

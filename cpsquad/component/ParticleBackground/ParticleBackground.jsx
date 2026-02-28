@@ -410,8 +410,8 @@ export default function ParticleBackground() {
       if (idleTimerRef.current) {
         clearTimeout(idleTimerRef.current);
       }
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      // canvas.removeEventListener('mousemove', handleMouseMove);
+      // canvas.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
