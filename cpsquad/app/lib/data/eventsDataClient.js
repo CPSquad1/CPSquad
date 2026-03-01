@@ -1,8 +1,28 @@
 // Client-side events data
 // This data is derived from the Excel file: CP SQUAD STATS.xlsx
+// Images are stored in Google Drive: https://drive.google.com/drive/folders/1mDy4AB0t1QN1XVICw7AXIxnjyHJKgaOr
+
+import { getDriveImageUrl } from '../googleDriveHelper.js';
+import { getEventImages } from '../eventImageMap.js';
+
+// Helper to merge event data with images from eventImageMap
+const createEvent = (eventData) => {
+  const images = getEventImages(eventData.slug);
+  
+  // Debug logging
+  console.log(`[eventsDataClient] Creating event: ${eventData.slug}`);
+  console.log(`[eventsDataClient] BrochureUrl: ${images.brochureUrl || 'NONE'}`);
+  console.log(`[eventsDataClient] StoryImages count: ${images.storyImages.length}`);
+  
+  return {
+    ...eventData,
+    image: images.brochureUrl || null,
+    storyImages: images.storyImages
+  };
+};
 
 export const eventsData = [
-  {
+  createEvent({
     id: 1,
     title: "Coding Sessions",
     date: "20-02-2023",
@@ -15,10 +35,10 @@ export const eventsData = [
     brochure: "",
     linkOfData: "",
     slug: "coding-sessions",
-    image: "/images/coding-sessions.jpg",
     excerpt: "Introductory coding sessions organized by CP Squad"
-  },
-  {
+  }),
+
+  createEvent({
     id: 2,
     title: "Coder's Arcade 0.0 (2nd Semester)",
     date: "28-02-2023",
@@ -31,10 +51,10 @@ export const eventsData = [
     brochure: "",
     linkOfData: "https://drive.google.com/file/d/15voWVyZ_oWKveyEgKKDovgo9vAEJus4/view?",
     slug: "coders-arcade-0-0-2nd-semester",
-    image: "/images/coders-arcade.jpg",
     excerpt: "Competitive coding contest for 2nd semester students"
-  },
-  {
+  }),
+
+  createEvent({
     id: 3,
     title: "Coder's Arcade 0.0 (4th Semester)",
     date: "21-03-2023",
@@ -47,10 +67,10 @@ export const eventsData = [
     brochure: "",
     linkOfData: "",
     slug: "coders-arcade-0-0-4th-semester",
-    image: "/images/coders-arcade.jpg",
     excerpt: "Competitive coding contest for 4th semester students"
-  },
-  {
+  }),
+
+  createEvent({
     id: 4,
     title: "The Importance of Data Structures and Algorithms (DSA) along with the Standard Template Library (STL)",
     date: "28-07-2023",
@@ -63,10 +83,10 @@ export const eventsData = [
     brochure: "",
     linkOfData: "",
     slug: "importance-of-dsa-and-stl",
-    image: "/images/expert-talk.jpg",
     excerpt: "Expert Talk by Abhishek Raj from Ex SAMSUNG Software Engineer"
-  },
-  {
+  }),
+
+  createEvent({
     id: 5,
     title: "Coder's Arcade 1.0",
     date: "19-08-2023",
@@ -79,10 +99,10 @@ export const eventsData = [
     brochure: "",
     linkOfData: "",
     slug: "coders-arcade-1-0",
-    image: "/images/coders-arcade.jpg",
     excerpt: "Major competitive programming contest organized by CP Squad"
-  },
-  {
+  }),
+
+  createEvent({
     id: 6,
     title: "Workshop on Competitive Programming",
     date: "15-09-2023",
@@ -95,10 +115,10 @@ export const eventsData = [
     brochure: "",
     linkOfData: "",
     slug: "workshop-on-competitive-programming",
-    image: "/images/workshop.jpg",
     excerpt: "Workshop by Priyanshu Gagiya from DA-IICT"
-  },
-  {
+  }),
+
+  createEvent({
     id: 7,
     title: "Data Structure Hunt '23",
     date: "09-10-2023",
@@ -111,55 +131,60 @@ export const eventsData = [
     brochure: "",
     linkOfData: "",
     slug: "data-structure-hunt-23",
-    image: "/images/treasure-hunt.jpg",
     excerpt: "Quiz + Treasure Hunt event organized by CP Squad"
-  },
-  {
-    id: 8,
-    title: "Team Selection (Technical Team)",
-    date: "07-03-2024",
-    duration: "2 Hours",
-    eventType: "CP SQUAD CLUB",
-    expertName: "-",
-    affiliation: "-",
-    participants: 27,
-    budget: 0,
-    brochure: "",
-    linkOfData: "",
-    slug: "team-selection-technical-team",
-    image: "/images/team-selection.jpg",
-    excerpt: "Technical team selection for CP Squad"
-  },
-  {
-    id: 9,
-    title: "Team Selection (Graphics & Media and Content Team)",
-    date: "08-03-2024",
-    duration: "1 Hour",
-    eventType: "Team Selection",
-    expertName: "-",
-    affiliation: "-",
-    participants: 11,
-    budget: 0,
-    brochure: "",
-    linkOfData: "",
-    slug: "team-selection-graphics-media-content",
-    image: "/images/team-selection.jpg",
-    excerpt: "Graphics, Media & Content team selection for CP Squad"
-  },
-  {
-    id: 10,
-    title: "Team Selection (Lead and Co-lead)",
-    date: "11-03-2024",
-    duration: "4 Hours",
-    eventType: "(Interviews)",
-    expertName: "-",
-    affiliation: "-",
-    participants: 15,
-    budget: 0,
-    brochure: "",
-    linkOfData: "",
-    slug: "team-selection-lead-co-lead",
-    image: "/images/team-selection.jpg",
-    excerpt: "Leadership team selection through interviews for CP Squad"
-  }
+  }),
+
+  // createEvent({
+  //   id: 8,
+  //   title: "Team Selection (Technical Team)",
+  //   date: "07-03-2024",
+  //   duration: "2 Hours",
+  //   eventType: "CP SQUAD CLUB",
+  //   expertName: "-",
+  //   affiliation: "-",
+  //   participants: 27,
+  //   budget: 0,
+  //   brochure: "",
+  //   linkOfData: "",
+  //   slug: "team-selection-technical-team",
+  //   excerpt: "Technical team selection for CP Squad"
+  // }),
+
+  // createEvent({
+  //   id: 9,
+  //   title: "Team Selection (Graphics & Media and Content Team)",
+  //   date: "08-03-2024",
+  //   duration: "1 Hour",
+  //   eventType: "Team Selection",
+  //   expertName: "-",
+  //   affiliation: "-",
+  //   participants: 11,
+  //   budget: 0,
+  //   brochure: "",
+  //   linkOfData: "",
+  //   slug: "team-selection-graphics-media-content",
+  //   excerpt: "Graphics, Media & Content team selection for CP Squad"
+  // }),
+
+  // createEvent({
+  //   id: 10,
+  //   title: "Team Selection (Lead and Co-lead)",
+  //   date: "11-03-2024",
+  //   duration: "4 Hours",
+  //   eventType: "(Interviews)",
+  //   expertName: "-",
+  //   affiliation: "-",
+  //   participants: 15,
+  //   budget: 0,
+  //   brochure: "",
+  //   linkOfData: "",
+  //   slug: "team-selection-lead-co-lead",
+  //   excerpt: "Leadership team selection through interviews for CP Squad"
+  // })
 ];
+
+// Debug: Log all events on module load
+console.log(`[eventsDataClient] Loaded ${eventsData.length} events`);
+eventsData.forEach(event => {
+  console.log(`  - ${event.slug}: image=${event.image ? 'YES' : 'NO'}, storyImages=${event.storyImages?.length || 0}`);
+});

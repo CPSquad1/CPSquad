@@ -14,6 +14,9 @@ const EventCard = ({
   duration,
   participants,
 }) => {
+  // Debug: Log image value
+  console.log(`[EventCard] ${slug}: image=${image || 'NULL'}`);
+  
   return (
     <div
       key={id}
@@ -25,11 +28,22 @@ const EventCard = ({
       border border-gray-800
       rounded-[5px]"
     >
-      <img
-        className="absolute inset-0 z-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110 rounded-[5px]"
-        src={image}
-        alt={title}
-      />
+      {image ? (
+        <img
+          className="absolute inset-0 z-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110 rounded-[5px]"
+          src={image}
+          alt={title}
+          onLoad={() => console.log(`✅ [EventCard] Image loaded: ${slug}`)}
+          onError={(e) => {
+            console.error(`❌ [EventCard] Image FAILED to load: ${slug}`, e);
+            console.error(`   URL: ${image}`);
+          }}
+        />
+      ) : (
+        <div className="absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+          <span className="text-gray-600 text-6xl">📅</span>
+        </div>
+      )}
 
       <div
         className="absolute inset-0 bg-black/60 z-10 group-hover:bg-gradient-to-t from-[#00A63E]/10 to-[#00ff66]/46

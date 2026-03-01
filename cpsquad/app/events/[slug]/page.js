@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { eventsData } from "@/app/lib/data/eventsDataClient";
 import Link from "next/link";
 import { FiArrowLeft, FiCalendar, FiClock, FiUsers, FiDollarSign, FiFileText } from "react-icons/fi";
+import EventStoryVisualization from "@/component/EventStoryVisualization/EventStoryVisualization";
 
 export default function EventDetailPage() {
   const params = useParams();
@@ -25,6 +26,54 @@ export default function EventDetailPage() {
     );
   }
 
+  // Check if event has story images
+  const hasStoryImages = event.storyImages && event.storyImages.length > 0;
+
+  // If no story images, show the old layout
+  if (!hasStoryImages) {
+    return <EventDetailPageLegacy event={event} />;
+  }
+
+  // Prepare metadata for EventStoryVisualization
+  const metadata = {
+    date: event.date,
+    location: event.affiliation !== '-' ? event.affiliation : undefined,
+    tags: [
+      event.eventType,
+      ...(event.participants > 0 ? [`${event.participants} participants`] : []),
+      ...(event.duration ? [event.duration] : [])
+    ]
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0a]">
+      {/* Back Button */}
+      <div className="absolute top-24 left-8 z-50">
+        <Link 
+          href="/events" 
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[#1e1e1e] border border-gray-700 text-gray-300 hover:text-[#00FF41] hover:border-[#00FF41] rounded-lg shadow-lg hover:shadow-[0_0_20px_rgba(0,255,65,0.3)] transition-all group"
+        >
+          <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+          Back to Events
+        </Link>
+      </div>
+
+      {/* EventStoryVisualization Component */}
+      <EventStoryVisualization
+        title={event.title}
+        subtitle={event.expertName !== '-' ? `Speaker: ${event.expertName}` : undefined}
+        description={event.excerpt}
+        metadata={metadata}
+        images={event.storyImages}
+      />
+    </div>
+  );
+}
+
+/**
+ * Legacy event detail page for events without story images
+ */
+function EventDetailPageLegacy({ event }) {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Back Button */}
@@ -40,11 +89,17 @@ export default function EventDetailPage() {
 
       {/* Hero Image Section */}
       <div className="relative h-[400px] md:h-[500px] overflow-hidden">
-        <img 
-          src={event.image} 
-          alt={event.title}
-          className="w-full h-full object-cover"
-        />
+        {event.image ? (
+          <img 
+            src={event.image} 
+            alt={event.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+            <span className="text-gray-700 text-9xl">📅</span>
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/50 to-transparent"></div>
         
         {/* Event Type Badge */}

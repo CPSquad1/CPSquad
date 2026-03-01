@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Brochure Image</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: monospace;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+        img {
+            max-width: 100%;
+            border: 2px solid #00FF41;
+        }
+        .url {
+            background: #1e1e1e;
+            padding: 10px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h1>Brochure Image Test</h1>
+    
+    <div class="test-section">
+        <h2>File ID: 15voWVyZ_oWKveyEgKKDovgo9vAEiJus4</h2>
+        
+        <h3>Format 1: drive.google.com/uc</h3>
+        <div class="url">https://drive.google.com/uc?export=view&id=15voWVyZ_oWKveyEgKKDovgo9vAEiJus4</div>
+        <img src="https://drive.google.com/uc?export=view&id=15voWVyZ_oWKveyEgKKDovgo9vAEiJus4" alt="Brochure - Format 1">
+        
+        <h3>Format 2: lh3.googleusercontent.com/d/ (with =s0)</h3>
+        <div class="url">https://lh3.googleusercontent.com/d/15voWVyZ_oWKveyEgKKDovgo9vAEiJus4=s0</div>
+        <img src="https://lh3.googleusercontent.com/d/15voWVyZ_oWKveyEgKKDovgo9vAEiJus4=s0" alt="Brochure - Format 2">
+        
+        <h3>Format 3: lh3.googleusercontent.com/d/ (no params)</h3>
+        <div class="url">https://lh3.googleusercontent.com/d/15voWVyZ_oWKveyEgKKDovgo9vAEiJus4</div>
+        <img src="https://lh3.googleusercontent.com/d/15voWVyZ_oWKveyEgKKDovgo9vAEiJus4" alt="Brochure - Format 3">
+        
+        <h3>Format 4: lh3.googleusercontent.com/d/ (with =w1000)</h3>
+        <div class="url">https://lh3.googleusercontent.com/d/15voWVyZ_oWKveyEgKKDovgo9vAEiJus4=w1000</div>
+        <img src="https://lh3.googleusercontent.com/d/15voWVyZ_oWKveyEgKKDovgo9vAEiJus4=w1000" alt="Brochure - Format 4">
+    </div>
+
+    <div class="test-section">
+        <h2>Story Image Example (Working)</h2>
+        <h3>File ID: 1nSBEbtKp80LrYRoOxLbE8LKdmzJOnZ-v</h3>
+        <div class="url">https://lh3.googleusercontent.com/d/1nSBEbtKp80LrYRoOxLbE8LKdmzJOnZ-v</div>
+        <img src="https://lh3.googleusercontent.com/d/1nSBEbtKp80LrYRoOxLbE8LKdmzJOnZ-v" alt="Story Image - Working">
+    </div>
+
+    <script>
+        // Log which images load successfully
+        document.querySelectorAll('img').forEach((img, i) => {
+            img.onload = () => console.log(`✅ Image ${i + 1} loaded:`, img.src);
+            img.onerror = () => console.error(`❌ Image ${i + 1} FAILED:`, img.src);
+        });
+    </script>
+</body>
+</html>

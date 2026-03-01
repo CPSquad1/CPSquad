@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event vs Contributor Images Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #0a0a0a;
+            color: #fff;
+        }
+        h1 {
+            color: #00FF41;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 40px;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .section-title {
+            color: #00FF41;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .image-card {
+            background: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            transition: all 0.3s;
+        }
+        .image-card.success {
+            border-color: #00FF41;
+        }
+        .image-card.error {
+            border-color: #ff4141;
+        }
+        .image-title {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+            font-family: monospace;
+        }
+        .image-container {
+            width: 100%;
+            height: 150px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .status {
+            font-size: 11px;
+            padding: 5px;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .status.loading {
+            background: #444;
+        }
+        .status.success {
+            background: #00FF41;
+            color: #000;
+            font-weight: bold;
+        }
+        .status.error {
+            background: #ff4141;
+        }
+        .summary {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #00FF41;
+        }
+        .summary-item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Event vs Contributor Images Comparison</h1>
+    
+    <div id="summary" class="summary">
+        <div class="summary-item">⏳ Testing images...</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">✅ CONTRIBUTOR IMAGES (Working)</div>
+        <div id="contributorImages" class="images-grid"></div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">❓ EVENT IMAGES (Testing)</div>
+        <div id="eventImages" class="images-grid"></div>
+    </div>
+
+    <script>
+        // Sample contributor image IDs (from your working contributors)
+        const contributorImageIds = [
+            '1JiPKEVT2vZVRBtjVP8zzJ_2iGKPXv67J', // Example contributor
+            '1PUMWvZEuq3sBwJz_aRVCkCyDmwPF-Q-V',
+            '1QhfSR1jmLqPDz3gfyEX2YEhEy-LlXKD0'
+        ];
+
+        // Event image IDs from your eventImageMap.js
+        const eventImageIds = [
+            '15voWVyZ_oWKveyEgKKDovgo9vAEiJus4', // brochure
+            '10n7Q-KsYSBFNkrCb0dH0u2NjGwwuO5wj', // story 1
+            '10mNaE8A1bHVTfznf0N3y-MhWeWl4rvAr', // story 2
+            '10cxtbEviD8Jhev86YcK6aXK6QhOX38cw', // story 3
+            '10a_a_IYh8-8Ft6wFeYgv3g3W1_z9G33M'  // story 4
+        ];
+
+        let successCount = { contributor: 0, event: 0 };
+        let errorCount = { contributor: 0, event: 0 };
+
+        function createImageCard(fileId, type) {
+            const url = `https://lh3.googleusercontent.com/d/${fileId}`;
+            
+            const card = document.createElement('div');
+            card.className = 'image-card';
+            card.innerHTML = `
+                <div class="image-title">${fileId.substring(0, 15)}...</div>
+                <div class="image-container">
+                    <img src="${url}" alt="Test">
+                </div>
+                <div class="status loading">⏳ Loading...</div>
+            `;
+
+            const img = card.querySelector('img');
+            const status = card.querySelector('.status');
+
+            img.onload = () => {
+                status.textContent = `✅ SUCCESS`;
+                status.className = 'status success';
+                card.classList.add('success');
+                successCount[type]++;
+                updateSummary();
+            };
+
+            img.onerror = (e) => {
+                status.textContent = `❌ FAILED - Not shared publicly`;
+                status.className = 'status error';
+                card.classList.add('error');
+                errorCount[type]++;
+                updateSummary();
+                
+                // Log to console for debugging
+                console.error(`Failed to load ${type} image:`, fileId, url);
+            };
+
+            return card;
+        }
+
+        function updateSummary() {
+            const total = {
+                contributor: contributorImageIds.length,
+                event: eventImageIds.length
+            };
+
+            document.getElementById('summary').innerHTML = `
+                <div class="summary-item">
+                    <strong>Contributors:</strong> 
+                    ✅ ${successCount.contributor}/${total.contributor} loaded 
+                    ${errorCount.contributor > 0 ? `❌ ${errorCount.contributor} failed` : ''}
+                </div>
+                <div class="summary-item">
+                    <strong>Events:</strong> 
+                    ✅ ${successCount.event}/${total.event} loaded 
+                    ${errorCount.event > 0 ? `❌ ${errorCount.event} failed` : ''}
+                </div>
+                <div class="summary-item" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #333;">
+                    ${errorCount.event > 0 ? 
+                        '⚠️ <strong>Event images failing:</strong> Files not shared as "Anyone with the link" or invalid file IDs' : 
+                        '✅ All images loading successfully!'}
+                </div>
+            `;
+        }
+
+        // Load contributor images
+        const contributorContainer = document.getElementById('contributorImages');
+        contributorImageIds.forEach(id => {
+            contributorContainer.appendChild(createImageCard(id, 'contributor'));
+        });
+
+        // Load event images
+        const eventContainer = document.getElementById('eventImages');
+        eventImageIds.forEach(id => {
+            eventContainer.appendChild(createImageCard(id, 'event'));
+        });
+
+        // Initial summary
+        updateSummary();
+    </script>
+</body>
+</html>

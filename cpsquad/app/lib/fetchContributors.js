@@ -12,7 +12,10 @@ export function convertGoogleDriveUrl(driveUrl) {
   if (!driveUrl) return '';
   
   // Check if it's already a direct link
-  if (driveUrl.includes('googleusercontent.com') || driveUrl.includes('uc?id=')) {
+  if (driveUrl.includes('googleusercontent.com') || 
+      driveUrl.includes('uc?export=view&id=') || 
+      driveUrl.includes('uc?id=') ||
+      driveUrl.includes('thumbnail?id=')) {
     return driveUrl;
   }
   
@@ -34,7 +37,7 @@ export function convertGoogleDriveUrl(driveUrl) {
   }
   
   if (fileId) {
-    // Use Google's CDN which is more reliable for embedding
+    // Use Google's CDN which is reliable for embedding
     return `https://lh3.googleusercontent.com/d/${fileId}`;
   }
   
