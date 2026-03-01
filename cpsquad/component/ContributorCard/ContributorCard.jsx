@@ -13,10 +13,10 @@ const ContributorCard = ({
   const [imageError, setImageError] = useState(false);
 
   const sizeClasses = {
-    small: "w-16 h-16",
-    medium: "w-20 h-20",
-    large: "w-28 h-28",
-    xlarge: "w-32 h-32"
+    small: "w-12 h-12 sm:w-16 sm:h-16",
+    medium: "w-14 h-14 sm:w-20 sm:h-20",
+    large: "w-20 h-20 sm:w-28 sm:h-28",
+    xlarge: "w-24 h-24 sm:w-32 sm:h-32"
   };
 
   const roleColors = {
@@ -48,7 +48,7 @@ const ContributorCard = ({
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-white text-sm font-bold">
+            <div className="w-full h-full flex items-center justify-center text-white text-xs sm:text-sm font-bold">
               {name?.charAt(0) || "?"}
             </div>
           )}
@@ -61,13 +61,13 @@ const ContributorCard = ({
       </div>
 
       {/* Tooltip */}
-      <div className={`tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-4 transition-all duration-300 pointer-events-none w-48 bg-black/90 backdrop-blur-md border ${roleColor.split(' ')[1]} p-4 rounded-lg z-50 ${isHovered ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-2"}`}>
-        <p className="text-white font-bold text-sm">{name}</p>
-        <p className={`${roleColor.split(' ')[0]} text-xs font-medium uppercase`}>
+      <div className={`tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 sm:mb-4 transition-all duration-300 pointer-events-none w-32 sm:w-48 bg-black/90 backdrop-blur-md border ${roleColor.split(' ')[1]} p-2 sm:p-4 rounded-lg z-50 ${isHovered ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-2"}`}>
+        <p className="text-white font-bold text-xs sm:text-sm">{name}</p>
+        <p className={`${roleColor.split(' ')[0]} text-[10px] sm:text-xs font-medium uppercase`}>
           {role || "Member"}
         </p>
         {linkedin && (
-          <div className="flex gap-2 mt-3">
+          <div className="flex gap-2 mt-2 sm:mt-3">
             <a
               href={linkedin}
               target="_blank"
@@ -75,7 +75,7 @@ const ContributorCard = ({
               className="p-1 rounded bg-white/10 hover:bg-white/20 transition-colors pointer-events-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
             </a>

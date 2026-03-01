@@ -7,110 +7,114 @@ const YearCard = ({ year, contributors = [] }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [imageErrors, setImageErrors] = useState({});
 
-  // Define size for avatars
-  const size = "w-20 h-20"; // Medium size for year card view
+  // Define size for avatars - responsive
+  const size = "w-14 h-14 sm:w-20 sm:h-20"; // Responsive size for year card view
 
-  // Generate random non-overlapping positions for contributors
-  const generateRandomPositions = (count) => {
-    const positions = [];
-    const minDistance = 12; // Reduced for more contributors to fit
-    const logoArea = { x: 26, y: 50, radius: 18 }; // Logo avoidance area
+  // Generate grid positions for all contributors (no role-based positioning)
+  const generateGridPositions = (contributors) => {
+    const count = contributors.length;
+    const assignedPositions = [];
     
-    for (let i = 0; i < count; i++) {
-      let attempts = 0;
-      let position;
-      
-      while (attempts < 200) { // Increased attempts
-        // Generate random position with safe margins (x: 35-88%, y: 15-85%)
-        const x = 35 + Math.random() * 50;
-        const y = 15 + Math.random() * 65;
-        
-        // Check if position overlaps with logo
-        const distanceToLogo = Math.sqrt(Math.pow(x - logoArea.x, 2) + Math.pow(y - logoArea.y, 2));
-        if (distanceToLogo < logoArea.radius + minDistance) {
-          attempts++;
-          continue;
-        }
-        
-        // Check if position overlaps with other contributors
-        let overlaps = false;
-        for (const pos of positions) {
-          const distance = Math.sqrt(Math.pow(x - pos.left, 2) + Math.pow(y - pos.top, 2));
-          if (distance < minDistance) {
-            overlaps = true;
-            break;
-          }
-        }
-        
-        if (!overlaps) {
-          position = { top: y, left: x };
-          break;
-        }
-        
-        attempts++;
+    // Calculate optimal grid layout based on total number of contributors
+    let columns, rows;
+    
+    // Mobile: 4 columns, Desktop: dynamic columns
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
+      columns = 4; // Fixed 4 columns for mobile
+    } else {
+      if (count <= 4) {
+        columns = 2;
+      } else if (count <= 9) {
+        columns = 3;
+      } else if (count <= 16) {
+        columns = 4;
+      } else if (count <= 25) {
+        columns = 5;
+      } else {
+        columns = 6;
       }
-      
-      // If couldn't find non-overlapping position, use grid fallback
-      if (!position) {
-        const cols = Math.ceil(Math.sqrt(count));
-        const row = Math.floor(i / cols);
-        const col = i % cols;
-        position = { 
-          top: 15 + (row * 14), 
-          left: 38 + (col * 9) 
-        };
-      }
-      
-      positions.push(position);
     }
     
-    return positions;
+    rows = Math.ceil(count / columns);
+    
+    // Dynamic grid configuration based on number of rows and columns
+    // Mobile: center-aligned grid below logo, Desktop: right-aligned grid
+    const gridConfig = {
+      startX: typeof window !== 'undefined' && window.innerWidth < 640 ? 10 : 45, // Mobile: 10%, Desktop: 45%
+      startY: typeof window !== 'undefined' && window.innerWidth < 640 ? 38 : 12, // Mobile: start at 38% (closer to logo), Desktop: 12%
+      columnGap: typeof window !== 'undefined' && window.innerWidth < 640 ? 18 : Math.min(16, (50 / columns)),
+      rowGap: typeof window !== 'undefined' && window.innerWidth < 640 ? 10 : Math.min(18, (75 / rows)),
+      columns: columns
+    };
+    
+    // Position all contributors in grid
+    for (let i = 0; i < count; i++) {
+      const row = Math.floor(i / gridConfig.columns);
+      const col = i % gridConfig.columns;
+      assignedPositions[i] = {
+        top: gridConfig.startY + (row * gridConfig.rowGap),
+        left: gridConfig.startX + (col * gridConfig.columnGap)
+      };
+    }
+    
+    return assignedPositions;
   };
 
   const [contributorPositions, setContributorPositions] = useState([]);
   
-  // Regenerate positions when contributors data changes
+  // Regenerate positions when contributors data changes or window resizes
   useEffect(() => {
     if (contributors.length > 0) {
-      setContributorPositions(generateRandomPositions(contributors.length));
+      setContributorPositions(generateGridPositions(contributors));
     }
-  }, [contributors.length]);
+    
+    // Add resize listener to regenerate positions on screen size change
+    const handleResize = () => {
+      if (contributors.length > 0) {
+        setContributorPositions(generateGridPositions(contributors));
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [contributors]);
 
   return (
     <Link href={`/contributors/${year}`}>
-      <div className="relative w-full max-w-[900px] aspect-[16/10] overflow-hidden group cursor-pointer mx-auto">
+      <div className="relative w-full max-w-[900px] aspect-[9/16] sm:aspect-[16/10] overflow-hidden group cursor-pointer mx-auto">
         {/* Glass panel container */}
         <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl transition-all duration-500 group-hover:border-[#00FF41]/30 group-hover:shadow-[0_0_30px_rgba(0,255,65,0.2)]">
-          {/* Sidebar with year */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 border-r border-white/5 bg-white/[0.03] flex flex-col items-center justify-center">
-            <span className="text-5xl font-black text-white/10 rotate-180 uppercase tracking-tighter" style={{ writingMode: "vertical-rl" }}>
-              {year}
+          {/* Sidebar with year - horizontal on mobile, vertical on desktop */}
+          <div className="absolute left-0 top-0 right-0 sm:right-auto sm:bottom-0 h-12 sm:h-auto sm:w-16 border-b sm:border-b-0 sm:border-r border-white/5 bg-white/[0.03] flex sm:flex-col items-center justify-center">
+            <span className="text-3xl sm:text-5xl font-black text-white/10 sm:rotate-180 uppercase tracking-tighter" style={{ writingMode: "horizontal-tb", WebkitWritingMode: "horizontal-tb" }}>
+              <span className="hidden sm:inline" style={{ writingMode: "vertical-rl", WebkitWritingMode: "vertical-rl" }}>{year}</span>
+              <span className="inline sm:hidden">{year}</span>
             </span>
-            <div className="absolute bottom-6 flex flex-col gap-3 text-slate-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00FF41]"></span>
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+            <div className="absolute right-4 sm:right-auto sm:bottom-6 flex sm:flex-col gap-2 sm:gap-3 text-slate-500">
+              <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-slate-600"></span>
+              <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-[#00FF41]"></span>
+              <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-slate-600"></span>
             </div>
           </div>
 
           {/* Main content area */}
-          <div className="ml-16 relative h-full flex items-center justify-center overflow-hidden">
+          <div className="mt-12 sm:mt-0 sm:ml-16 relative h-full flex items-center justify-center overflow-hidden">
             {/* Header */}
-            <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30">
-              <div className="px-8 py-2 bg-white/[0.05] backdrop-blur-md border border-[#00FF41]/20 rounded-full">
-                <h2 className="text-lg font-bold tracking-[0.2em] uppercase text-white">
+            <div className="absolute top-2 sm:top-6 left-1/2 -translate-x-1/2 z-30">
+              <div className="px-3 sm:px-8 py-1 sm:py-2 bg-white/[0.05] backdrop-blur-md border border-[#00FF41]/20 rounded-full">
+                <h2 className="text-[10px] sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white">
                   Contributors
                 </h2>
               </div>
             </div>
 
-            {/* Center Logo */}
-            <div className="absolute left-24 top-1/2 -translate-y-1/2 w-48 h-48 flex items-center justify-center z-20">
+            {/* Center Logo - Top on mobile, Center left on desktop */}
+            <div className="absolute left-1/2 sm:left-24 top-[22%] sm:top-1/2 -translate-x-1/2 sm:translate-x-0 -translate-y-1/2 w-32 sm:w-48 h-32 sm:h-48 flex items-center justify-center z-20">
               {/* Glow effect */}
               <div className="absolute inset-0 bg-[#00FF41]/10 blur-3xl rounded-full"></div>
               
               {/* Logo container */}
-              <div className="relative z-10 w-36 h-36 rounded-full border-3 border-[#00FF41]/30 p-3 bg-black/40 backdrop-blur-sm group-hover:border-[#00FF41]/60 transition-all duration-500 group-hover:shadow-[0_0_40px_rgba(0,255,65,0.4)]">
+              <div className="relative z-10 w-24 sm:w-36 h-24 sm:h-36 rounded-full border-2 sm:border-3 border-[#00FF41]/30 p-2 sm:p-3 bg-black/40 backdrop-blur-sm group-hover:border-[#00FF41]/60 transition-all duration-500 group-hover:shadow-[0_0_40px_rgba(0,255,65,0.4)]">
                 <div className="relative w-full h-full rounded-full overflow-hidden">
                   <Image
                     src="/images/logo.png"
@@ -158,7 +162,7 @@ const YearCard = ({ year, contributors = [] }) => {
                                 onError={() => setImageErrors(prev => ({ ...prev, [contributor.id]: true }))}
                               />
                             ) : (
-                              <div className="w-full h-full flex items-center justify-center text-white text-sm font-bold">
+                              <div className="w-full h-full flex items-center justify-center text-white text-xs sm:text-sm font-bold">
                                 {contributor.name?.charAt(0) || "?"}
                               </div>
                             )}
@@ -171,9 +175,9 @@ const YearCard = ({ year, contributors = [] }) => {
                         </div>
 
                         {/* Tooltip */}
-                        <div className={`tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-4 transition-all duration-300 pointer-events-none w-48 bg-black/90 backdrop-blur-md border border-[#00FF41]/30 p-4 rounded-lg z-50 ${hoveredIndex === index ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-2"}`}>
-                          <p className="text-white font-bold text-sm">{contributor.name}</p>
-                          <p className="text-[#00FF41] text-xs font-medium uppercase">
+                        <div className={`tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 sm:mb-4 transition-all duration-300 pointer-events-none w-32 sm:w-48 bg-black/90 backdrop-blur-md border border-[#00FF41]/30 p-2 sm:p-4 rounded-lg z-50 ${hoveredIndex === index ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-2"}`}>
+                          <p className="text-white font-bold text-xs sm:text-sm">{contributor.name}</p>
+                          <p className="text-[#00FF41] text-[10px] sm:text-xs font-medium uppercase">
                             {contributor.role || "Member"}
                           </p>
                         </div>
@@ -183,21 +187,13 @@ const YearCard = ({ year, contributors = [] }) => {
 
                   {/* Decorative rings around logo only */}
                   <div className="absolute inset-0 pointer-events-none opacity-10">
-                    <div className="absolute top-1/2 left-[26%] -translate-x-1/2 -translate-y-1/2 w-[220px] h-[220px] border border-[#00FF41]/20 rounded-full"></div>
-                    <div className="absolute top-1/2 left-[26%] -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-[#00FF41]/10 rounded-full"></div>
+                    <div className="absolute top-[22%] sm:top-1/2 left-1/2 sm:left-[26%] -translate-x-1/2 -translate-y-1/2 w-[160px] sm:w-[220px] h-[160px] sm:h-[220px] border border-[#00FF41]/20 rounded-full"></div>
+                    <div className="absolute top-[22%] sm:top-1/2 left-1/2 sm:left-[26%] -translate-x-1/2 -translate-y-1/2 w-[220px] sm:w-[300px] h-[220px] sm:h-[300px] border border-[#00FF41]/10 rounded-full"></div>
                   </div>
                 </>
               )}
             </div>
 
-            {/* Bottom stats */}
-            {/* <div className="absolute bottom-4 right-4 flex items-center gap-4">
-              <div className="px-3 py-1.5 bg-white/[0.05] backdrop-blur-md border border-white/10 rounded-full">
-                <span className="text-[10px] text-slate-400 uppercase tracking-widest">
-                  {contributors.length} Contributors
-                </span>
-              </div>
-            </div> */}
           </div>
         </div>
 

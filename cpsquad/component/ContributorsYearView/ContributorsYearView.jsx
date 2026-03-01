@@ -28,69 +28,74 @@ const ContributorsYearView = ({ year }) => {
     }
   }, [year]);
   
-  // Generate random non-overlapping positions for contributors
-  const generateRandomPositions = (count) => {
-    const positions = [];
-    const minDistance = 12; // Reduced for more contributors to fit
-    const logoArea = { x: 28, y: 50, radius: 18 };
+  // Generate grid positions for all contributors (no role-based positioning)
+  const generateGridPositions = (contributors) => {
+    const count = contributors.length;
+    const assignedPositions = [];
     
-    for (let i = 0; i < count; i++) {
-      let attempts = 0;
-      let position;
-      
-      while (attempts < 200) { // Increased attempts
-        // Generate random position with safe margins (x: 35-88%, y: 15-85%)
-        const x = 35 + Math.random() * 53;
-        const y = 15 + Math.random() * 70;
-        
-        const distanceToLogo = Math.sqrt(Math.pow(x - logoArea.x, 2) + Math.pow(y - logoArea.y, 2));
-        if (distanceToLogo < logoArea.radius + minDistance) {
-          attempts++;
-          continue;
-        }
-        
-        let overlaps = false;
-        for (const pos of positions) {
-          const distance = Math.sqrt(Math.pow(x - pos.left, 2) + Math.pow(y - pos.top, 2));
-          if (distance < minDistance) {
-            overlaps = true;
-            break;
-          }
-        }
-        
-        if (!overlaps) {
-          position = { top: y, left: x };
-          break;
-        }
-        
-        attempts++;
+    // Calculate optimal grid layout based on total number of contributors
+    let columns, rows;
+    
+    // Mobile: 4 columns, Desktop: dynamic columns
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
+      columns = 4; // Fixed 4 columns for mobile
+    } else {
+      if (count <= 4) {
+        columns = 2;
+      } else if (count <= 9) {
+        columns = 3;
+      } else if (count <= 16) {
+        columns = 4;
+      } else if (count <= 25) {
+        columns = 5;
+      } else {
+        columns = 6;
       }
-      
-      // Grid fallback for better distribution
-      if (!position) {
-        const cols = Math.ceil(Math.sqrt(count));
-        const row = Math.floor(i / cols);
-        const col = i % cols;
-        position = { 
-          top: 15 + (row * 14), 
-          left: 38 + (col * 9) 
-        };
-      }
-      
-      positions.push(position);
     }
     
-    return positions;
+    rows = Math.ceil(count / columns);
+    
+    // Dynamic grid configuration based on number of rows and columns
+    // Mobile: center-aligned grid below logo, Desktop: right-aligned grid
+    const gridConfig = {
+      startX: typeof window !== 'undefined' && window.innerWidth < 640 ? 10 : 45, // Mobile: 10%, Desktop: 45%
+      startY: typeof window !== 'undefined' && window.innerWidth < 640 ? 38 : 12, // Mobile: start at 38% (closer to logo), Desktop: 12%
+      columnGap: typeof window !== 'undefined' && window.innerWidth < 640 ? 18 : Math.min(16, (50 / columns)),
+      rowGap: typeof window !== 'undefined' && window.innerWidth < 640 ? 10 : Math.min(18, (75 / rows)),
+      columns: columns
+    };
+    
+    // Position all contributors in grid
+    for (let i = 0; i < count; i++) {
+      const row = Math.floor(i / gridConfig.columns);
+      const col = i % gridConfig.columns;
+      assignedPositions[i] = {
+        top: gridConfig.startY + (row * gridConfig.rowGap),
+        left: gridConfig.startX + (col * gridConfig.columnGap)
+      };
+    }
+    
+    return assignedPositions;
   };
 
   const [contributorPositions, setContributorPositions] = useState([]);
   
-  // Regenerate positions when contributors data changes
+  // Regenerate positions when contributors data changes or window resizes
   useEffect(() => {
     if (contributors.length > 0) {
-      setContributorPositions(generateRandomPositions(contributors.length));
+      setContributorPositions(generateGridPositions(contributors));
     }
-  }, [contributors.length]);
+    
+    // Add resize listener to regenerate positions on screen size change
+    const handleResize = () => {
+      if (contributors.length > 0) {
+        setContributorPositions(generateGridPositions(contributors));
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [contributors]);
 
   // Loading state
   if (isLoading) {
@@ -149,23 +154,24 @@ const ContributorsYearView = ({ year }) => {
         {/* Main Contributors Display */}
         <main className="px-4 sm:px-8 pb-20">
           <div className="max-w-7xl mx-auto">
-            <div className="relative w-full max-w-[1100px] aspect-[16/9] mx-auto">
+            <div className="relative w-full max-w-[1100px] aspect-[9/16] sm:aspect-[16/9] mx-auto">
               {/* Glass panel container */}
               <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
-                {/* Sidebar with year */}
-                <div className="absolute left-0 top-0 bottom-0 w-20 border-r border-white/5 bg-white/[0.03] flex flex-col items-center justify-center">
-                  <span className="text-6xl font-black text-white/10 rotate-180 uppercase tracking-tighter" style={{ writingMode: "vertical-rl" }}>
-                    {year}
+                {/* Sidebar with year - horizontal on mobile, vertical on desktop */}
+                <div className="absolute left-0 top-0 right-0 sm:right-auto sm:bottom-0 h-12 sm:h-auto sm:w-20 border-b sm:border-b-0 sm:border-r border-white/5 bg-white/[0.03] flex sm:flex-col items-center justify-center">
+                  <span className="text-3xl sm:text-6xl font-black text-white/10 sm:rotate-180 uppercase tracking-tighter" style={{ writingMode: "horizontal-tb", WebkitWritingMode: "horizontal-tb" }}>
+                    <span className="hidden sm:inline" style={{ writingMode: "vertical-rl", WebkitWritingMode: "vertical-rl" }}>{year}</span>
+                    <span className="inline sm:hidden">{year}</span>
                   </span>
-                  <div className="absolute bottom-8 flex flex-col gap-4">
-                    <span className="w-2 h-2 rounded-full bg-slate-600"></span>
-                    <span className="w-2 h-2 rounded-full bg-[#00FF41]"></span>
-                    <span className="w-2 h-2 rounded-full bg-slate-600"></span>
+                  <div className="absolute right-4 sm:right-auto sm:bottom-8 flex sm:flex-col gap-3 sm:gap-4">
+                    <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-slate-600"></span>
+                    <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#00FF41]"></span>
+                    <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-slate-600"></span>
                   </div>
                 </div>
 
                 {/* Main content area */}
-                <div className="ml-20 relative h-full flex items-center justify-center overflow-hidden">
+                <div className="mt-12 sm:mt-0 sm:ml-20 relative h-full flex items-center justify-center overflow-hidden">
                   {/* Header */}
                   {/* <div className="absolute top-8 left-1/2 -translate-x-1/2 z-30">
                     <div className="px-12 py-3 bg-white/[0.05] backdrop-blur-md border border-[#00FF41]/20 rounded-full">
@@ -175,13 +181,13 @@ const ContributorsYearView = ({ year }) => {
                     </div>
                   </div> */}
 
-                  {/* Center Logo */}
-                  <div className="absolute left-32 top-1/2 -translate-y-1/2 w-64 h-64 flex items-center justify-center z-20">
+                  {/* Center Logo - Top on mobile, Center left on desktop */}
+                  <div className="absolute left-1/2 sm:left-32 top-[22%] sm:top-1/2 -translate-x-1/2 sm:translate-x-0 -translate-y-1/2 w-40 sm:w-64 h-40 sm:h-64 flex items-center justify-center z-20">
                     {/* Glow effect */}
                     <div className="absolute inset-0 bg-[#00FF41]/10 blur-3xl rounded-full"></div>
                     
                     {/* Logo container */}
-                    <div className="relative z-10 w-48 h-48 rounded-full border-4 border-[#00FF41]/30 p-4 bg-black/40 backdrop-blur-sm">
+                    <div className="relative z-10 w-32 sm:w-48 h-32 sm:h-48 rounded-full border-2 sm:border-4 border-[#00FF41]/30 p-3 sm:p-4 bg-black/40 backdrop-blur-sm">
                       <div className="relative w-full h-full rounded-full overflow-hidden">
                         <Image
                           src="/images/logo.png"
@@ -222,22 +228,14 @@ const ContributorsYearView = ({ year }) => {
 
                         {/* Orbital rings */}
                         <div className="absolute inset-0 pointer-events-none opacity-10">
-                          <div className="absolute top-1/2 left-[28%] -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] border border-[#00FF41]/20 rounded-full"></div>
-                          <div className="absolute top-1/2 left-[28%] -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] border border-[#00FF41]/15 rounded-full"></div>
-                          <div className="absolute top-1/2 left-[28%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-[#00FF41]/5 rounded-full"></div>
+                          <div className="absolute top-[22%] sm:top-1/2 left-1/2 sm:left-[28%] -translate-x-1/2 -translate-y-1/2 w-[200px] sm:w-[280px] h-[200px] sm:h-[280px] border border-[#00FF41]/20 rounded-full"></div>
+                          <div className="absolute top-[22%] sm:top-1/2 left-1/2 sm:left-[28%] -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[380px] h-[280px] sm:h-[380px] border border-[#00FF41]/15 rounded-full"></div>
+                          <div className="absolute top-[22%] sm:top-1/2 left-1/2 sm:left-[28%] -translate-x-1/2 -translate-y-1/2 w-[360px] sm:w-[500px] h-[360px] sm:h-[500px] border border-[#00FF41]/5 rounded-full"></div>
                         </div>
                       </>
                     )}
                   </div>
 
-                  {/* Bottom stats */}
-                  {/* <div className="absolute bottom-6 right-6 flex items-center gap-4">
-                    <div className="px-4 py-2 bg-white/[0.05] backdrop-blur-md border border-white/10 rounded-full">
-                      <span className="text-xs text-slate-400 uppercase tracking-widest">
-                        © {new Date().getFullYear()} CP Squad Development Team
-                      </span>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </div>
