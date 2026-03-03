@@ -21,8 +21,8 @@
  * 
  * EXAMPLE:
  * ========
- * Google Drive Link: https://drive.google.com/file/d/1nSBEbtKp80LrYRoOxLbE8LKdmzJOnZ-v/view
- * File ID: 1nSBEbtKp80LrYRoOxLbE8LKdmzJOnZ-v
+ * Google Drive Link: https://drive.google.com/file/d/MOCK_FILE_ID_EXAMPLE/view
+ * File ID: MOCK_FILE_ID_EXAMPLE
  * 
  */
 

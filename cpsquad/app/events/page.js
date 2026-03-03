@@ -1,14 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EventCard from "@/component/EventCard/EventCard";
 import ParticleBackground from "@/component/ParticleBackground/ParticleBackground";
-
-// Note: Since we're using client-side rendering, we'll need to fetch the data differently
-// For now, we'll import a static version and update it later with server-side data fetching
-import { eventsData } from "@/app/lib/data/eventsDataClient";
+import { fetchEvents } from "@/app/lib/fetchEvents";
 
 export default function EventsPage() {
+  const [eventsData, setEventsData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  
+  // Fetch events from Google Sheets
+  useEffect(() => {
+    async function loadEvents() {
+      try {
+        const data = await fetchEvents();
+        setEventsData(data);
+      } catch (error) {
+        console.error('Failed to load events:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    loadEvents();
+  }, []);
   
   // Get unique event types for filtering
   const eventTypes = ["all", ...new Set(eventsData.map(event => event.eventType))];
@@ -77,9 +92,18 @@ export default function EventsPage() {
             </div>
           </div>
 
+          {/* Loading State */}
+          {loading && (
+            <div className="text-center py-20">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00FF41]"></div>
+              <p className="mt-4 text-gray-400">Loading events...</p>
+            </div>
+          )}
+
           {/* Events Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredEvents.map((event) => (
+          {!loading && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredEvents.map((event) => (
               <EventCard
                 key={event.id}
                 id={event.id}
@@ -92,11 +116,12 @@ export default function EventsPage() {
                 duration={event.duration}
                 participants={event.participants}
               />
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* No Events Message */}
-          {filteredEvents.length === 0 && (
+          {!loading && filteredEvents.length === 0 && (
             <div className="text-center py-20">
               <p className="text-xl text-gray-400">No events found in this category.</p>
             </div>

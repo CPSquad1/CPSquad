@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { LuDot } from "react-icons/lu";
 
@@ -14,8 +14,16 @@ const EventCard = ({
   duration,
   participants,
 }) => {
-  // Debug: Log image value
-  console.log(`[EventCard] ${slug}: image=${image || 'NULL'}`);
+  // State to track if image failed to load
+  const [imageError, setImageError] = useState(false);
+  
+  // Check if image is the logo placeholder
+  const isLogoPlaceholder = image && image.includes('/images/logo.png');
+  
+  // Use logo if image failed or is placeholder
+  const shouldShowLogo = !image || imageError || isLogoPlaceholder;
+  
+  // console.log(`[EventCard] ${slug}: image=${image || 'NULL'}, shouldShowLogo=${shouldShowLogo}`);
   
   return (
     <div
@@ -28,21 +36,26 @@ const EventCard = ({
       border border-gray-800
       rounded-[5px]"
     >
-      {image ? (
+      {shouldShowLogo ? (
+        // Logo placeholder - smaller, centered
+        <div className="absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center rounded-[5px]">
+          <img
+            className="w-32 h-32 object-contain opacity-30"
+            src="/images/logo.png"
+            alt={title}
+          />
+        </div>
+      ) : (
+        // Regular brochure image - full cover
         <img
           className="absolute inset-0 z-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110 rounded-[5px]"
           src={image}
           alt={title}
-          onLoad={() => console.log(`✅ [EventCard] Image loaded: ${slug}`)}
-          onError={(e) => {
-            console.error(`❌ [EventCard] Image FAILED to load: ${slug}`, e);
-            console.error(`   URL: ${image}`);
+          onError={() => {
+            // console.warn(`[EventCard] Image failed for ${slug}, using logo fallback`);
+            setImageError(true);
           }}
         />
-      ) : (
-        <div className="absolute inset-0 z-0 h-full w-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-          <span className="text-gray-600 text-6xl">📅</span>
-        </div>
       )}
 
       <div
@@ -70,9 +83,6 @@ const EventCard = ({
       </div>
 
       <div className="absolute bottom-5 w-full px-3 text-white z-20 font-sans text-center">
-        <p className="text-[13px] sm:text-[14px] leading-relaxed mb-3">
-          {excerpt}
-        </p>
         <div className="w-full flex justify-center gap-1 text-gray-300 text-xs sm:text-xs z-20 font-sans opacity-90 mb-4">
           <span>{date}</span>
           <span className="flex justify-center items-center">

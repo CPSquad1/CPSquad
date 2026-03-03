@@ -15,12 +15,15 @@ export default function EventStoryVisualization({
   images = []
 }) {
   // Debug: Log received images
-  useEffect(() => {
-    console.log('📸 EventStoryVisualization Debug:');
-    console.log('- Event:', title);
-    console.log('- Images received:', images.length);
-    console.log('- Images data:', images);
-  }, [title, images]);
+  // useEffect(() => {
+  //   console.log('📸 EventStoryVisualization Debug:');
+  //   console.log('- Event:', title);
+  //   console.log('- Images received:', images.length);
+  //   console.log('- Images data:', images);
+  //   if (images.length > 0) {
+  //     console.log('- First image structure:', images[0]);
+  //   }
+  // }, [title, images]);
 
   // Use all available images instead of limiting to 8
   const storyImages = images.length > 0 
@@ -374,7 +377,7 @@ function ImageWithFallback({ src, alt, className, loadDelay = 0 }) {
   };
 
   const handleLoad = () => {
-    console.log(`✅ Loaded image: ${src}`);
+    // console.log(`✅ Loaded image: ${src}`);
     setLoading(false);
     setError(false);
   };

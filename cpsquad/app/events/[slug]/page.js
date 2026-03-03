@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { eventsData } from "@/app/lib/data/eventsDataClient";
+import { fetchEventBySlug } from "@/app/lib/fetchEvents";
 import Link from "next/link";
 import { FiArrowLeft, FiCalendar, FiClock, FiUsers, FiDollarSign, FiFileText } from "react-icons/fi";
 import EventStoryVisualization from "@/component/EventStoryVisualization/EventStoryVisualization";
@@ -9,15 +9,47 @@ import EventStoryVisualization from "@/component/EventStoryVisualization/EventSt
 export default function EventDetailPage() {
   const params = useParams();
   const slug = params.slug;
+  const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true);
   
-  // Find the event by slug
-  const event = eventsData.find(e => e.slug === slug);
+  // Fetch event from Google Sheets
+  useEffect(() => {
+    async function loadEvent() {
+      try {
+        // console.log(`[EventDetailPage] Loading event with slug: "${slug}"`);
+        const data = await fetchEventBySlug(slug);
+        // console.log(`[EventDetailPage] Event data received:`, data);
+        setEvent(data);
+      } catch (error) {
+        console.error('[EventDetailPage] Failed to load event:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    if (slug) {
+      loadEvent();
+    }
+  }, [slug]);
+  
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00FF41]"></div>
+          <p className="mt-4 text-gray-400">Loading event...</p>
+        </div>
+      </div>
+    );
+  }
   
   if (!event) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Event Not Found</h1>
+          <p className="text-gray-400 mb-6">No event found with slug: "{slug}"</p>
           <Link href="/events" className="text-[#00FF41] hover:underline">
             Back to Events
           </Link>
@@ -28,9 +60,19 @@ export default function EventDetailPage() {
 
   // Check if event has story images
   const hasStoryImages = event.storyImages && event.storyImages.length > 0;
+  
+  // Debug event data
+  // console.log('[EventDetailPage] ======================');
+  // console.log('[EventDetailPage] Event loaded:', event.title);
+  // console.log('[EventDetailPage] Slug:', slug);
+  // console.log('[EventDetailPage] Has story images:', hasStoryImages);
+  // console.log('[EventDetailPage] Story images count:', event.storyImages?.length || 0);
+  // console.log('[EventDetailPage] Will show:', hasStoryImages ? 'EventStoryVisualization' : 'EventDetailPageLegacy');
+  // console.log('[EventDetailPage] ======================');
 
   // If no story images, show the old layout
   if (!hasStoryImages) {
+    // console.log('[EventDetailPage] Rendering legacy page for:', event.title);
     return <EventDetailPageLegacy event={event} />;
   }
 
@@ -48,7 +90,7 @@ export default function EventDetailPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       {/* Back Button */}
-      <div className="absolute top-24 left-8 z-50">
+      {/* <div className="absolute top-24 left-8 z-50">
         <Link 
           href="/events" 
           className="inline-flex items-center gap-2 px-4 py-2 bg-[#1e1e1e] border border-gray-700 text-gray-300 hover:text-[#00FF41] hover:border-[#00FF41] rounded-lg shadow-lg hover:shadow-[0_0_20px_rgba(0,255,65,0.3)] transition-all group"
@@ -56,7 +98,7 @@ export default function EventDetailPage() {
           <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" />
           Back to Events
         </Link>
-      </div>
+      </div> */}
 
       {/* EventStoryVisualization Component */}
       <EventStoryVisualization
@@ -74,6 +116,10 @@ export default function EventDetailPage() {
  * Legacy event detail page for events without story images
  */
 function EventDetailPageLegacy({ event }) {
+  // console.log('[EventDetailPageLegacy] Rendering legacy page');
+  // console.log('[EventDetailPageLegacy] Event:', event.title);
+  // console.log('[EventDetailPageLegacy] Event data:', event);
+  
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Back Button */}
@@ -149,13 +195,24 @@ function EventDetailPageLegacy({ event }) {
           )}
 
           {/* Budget */}
-          {event.budget > 0 && (
+          {event.budget && event.budget > 0 && (
             <div className="bg-[#1e1e1e] border border-gray-800 rounded-lg p-6 hover:border-[#00FF41] transition-colors">
               <div className="flex items-center gap-3 mb-2">
                 <FiDollarSign className="text-[#00FF41] text-xl" />
                 <h3 className="text-gray-400 text-sm font-semibold uppercase tracking-wide">Budget</h3>
               </div>
-              <p className="text-white text-lg font-medium">₹{event.budget}</p>
+              <p className="text-white text-lg font-medium">₹{event.budget.toLocaleString()}</p>
+            </div>
+          )}
+
+          {/* Event Level */}
+          {event.eventLevel && (
+            <div className="bg-[#1e1e1e] border border-gray-800 rounded-lg p-6 hover:border-[#00FF41] transition-colors">
+              <div className="flex items-center gap-3 mb-2">
+                <FiFileText className="text-[#00FF41] text-xl" />
+                <h3 className="text-gray-400 text-sm font-semibold uppercase tracking-wide">Event Level</h3>
+              </div>
+              <p className="text-white text-lg font-medium">{event.eventLevel}</p>
             </div>
           )}
         </div>
@@ -174,12 +231,14 @@ function EventDetailPageLegacy({ event }) {
         )}
 
         {/* Description */}
-        <div className="bg-[#1e1e1e] border border-gray-800 rounded-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4 text-[#00FF41]">About This Event</h2>
-          <p className="text-gray-300 leading-relaxed text-lg">
-            {event.excerpt}
-          </p>
-        </div>
+        {event.excerpt && event.excerpt.trim() !== '' && (
+          <div className="bg-[#1e1e1e] border border-gray-800 rounded-lg p-8 mb-8">
+            <h2 className="text-2xl font-bold mb-4 text-[#00FF41]">About This Event</h2>
+            <p className="text-gray-300 leading-relaxed text-lg">
+              {event.excerpt}
+            </p>
+          </div>
+        )}
 
         {/* Links Section */}
         {(event.linkOfData || event.brochure) && (

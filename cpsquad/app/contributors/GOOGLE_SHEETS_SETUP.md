@@ -6,7 +6,9 @@ The contributors page now fetches data directly from Google Sheets, making it ea
 ## Google Sheets Setup
 
 ### 1. Sheet URL
-**Current Sheet:** https://docs.google.com/spreadsheets/d/12PaH7U9Vp2b0vKyADI8mcV8X4L52GaL3/edit?gid=1257102671#gid=1257102671
+**Example Sheet:** `https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit?gid=YOUR_GID`
+
+Replace `YOUR_SHEET_ID` and `YOUR_GID` with your actual Google Sheets identifiers.
 
 ### 2. Required Columns
 Your Google Sheet must have these column headers (order doesn't matter):
@@ -74,10 +76,12 @@ Different roles display with different accent colors:
 ## Example Data Row
 
 | Sr. No | ID | Name | Role | Year | Photo | Linkdin |
-|--------|----|----- |------|------|-------|---------||
-| 1 | 1 | Alex Rivera | HOD | 2025 | https://drive.google.com/file/d/abc123/view | https://linkedin.com/in/alex |
-| 2 | 2 | Sarah Chen | VPR | 2025 | https://drive.google.com/file/d/xyz789/view | https://linkedin.com/in/sarah |
-| 3 | 3 | Jordan Smith | Member | 2024 | https://drive.google.com/file/d/def456/view | |
+|--------|----|----- |------|------|-------|---------|
+| 1 | 1 | Alex Rivera | HOD | 2025 | https://drive.google.com/file/d/MOCK_ID_001/view | https://linkedin.com/in/alexrivera |
+| 2 | 2 | Sarah Chen | VPR | 2025 | https://drive.google.com/file/d/MOCK_ID_002/view | https://linkedin.com/in/sarahchen |
+| 3 | 3 | Jordan Smith | TM | 2025 | https://drive.google.com/file/d/MOCK_ID_003/view | https://linkedin.com/in/jordansmith |
+| 4 | 4 | Maya Patel | PR | 2024 | https://drive.google.com/file/d/MOCK_ID_004/view | https://linkedin.com/in/mayapatel |
+| 5 | 5 | Chris Wong | Member | 2024 | https://drive.google.com/file/d/MOCK_ID_005/view | |
 
 ## How It Works
 
@@ -140,11 +144,17 @@ Different roles display with different accent colors:
 
 The Google Sheets configuration is stored in environment variables for security.
 
-**File:** `.env.local` (already configured)
+**File:** `.env.local`
 
 ```env
-NEXT_PUBLIC_SHEET_ID=12PaH7U9Vp2b0vKyADI8mcV8X4L52GaL3
-NEXT_PUBLIC_SHEET_GID=1257102671
+NEXT_PUBLIC_SHEET_ID=YOUR_GOOGLE_SHEET_ID_HERE
+NEXT_PUBLIC_SHEET_GID=YOUR_SHEET_GID_HERE
+```
+
+**Example:**
+```env
+NEXT_PUBLIC_SHEET_ID=1a2B3c4D5e6F7g8H9i0J1k2L3m4N5o6P7q8R9s0T
+NEXT_PUBLIC_SHEET_GID=0
 ```
 
 **To change to a different Google Sheet:**

@@ -1,14 +1,14 @@
 # How to Add Event Images
 
-Since your Google Drive folder is **private**, we can't fetch images automatically. Instead, manually copy file IDs from your Google Drive.
+This guide explains how to add event images from your Google Drive folder to the website.
 
 ## 📸 Quick Start (3 Steps)
 
 ### Step 1: Get File IDs from Google Drive
 
-1. Open your events folder: https://drive.google.com/drive/folders/1mDy4AB0t1QN1XVICw7AXIxnjyHJKgaOr
+1. Open your events folder in Google Drive (e.g., `https://drive.google.com/drive/folders/YOUR_FOLDER_ID`)
 
-2. Navigate to an event folder (e.g., "Coder's Arcade 1.0")
+2. Navigate to an event folder (e.g., "Coding Workshop 2024")
 
 3. Open the **brochure** or **photos** subfolder
 
@@ -19,9 +19,9 @@ Since your Google Drive folder is **private**, we can't fetch images automatical
 
 **Example:**
 ```
-Link: https://drive.google.com/file/d/1nSBEbtKp80LrYRoOxLbE8LKdmzJOnZ-v/view
-File ID: 1nSBEbtKp80LrYRoOxLbE8LKdmzJOnZ-v
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Link: https://drive.google.com/file/d/1aBcDeFgHiJkLmNoPqRsTuVwXyZ123456789/view
+File ID: 1aBcDeFgHiJkLmNoPqRsTuVwXyZ123456789
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
          Copy this part!
 ```
 
