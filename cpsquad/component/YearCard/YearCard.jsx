@@ -100,13 +100,13 @@ const YearCard = ({ year, contributors = [] }) => {
           {/* Main content area */}
           <div className="mt-12 sm:mt-0 sm:ml-16 relative h-full flex items-center justify-center overflow-hidden">
             {/* Header */}
-            <div className="absolute top-2 sm:top-6 left-1/2 -translate-x-1/2 z-30">
+            {/* <div className="absolute top-2 sm:top-6 left-1/2 -translate-x-1/2 z-30">
               <div className="px-3 sm:px-8 py-1 sm:py-2 bg-white/[0.05] backdrop-blur-md border border-[#00FF41]/20 rounded-full">
                 <h2 className="text-[10px] sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white">
                   Contributors
                 </h2>
               </div>
-            </div>
+            </div> */}
 
             {/* Center Logo - Top on mobile, Center left on desktop */}
             <div className="absolute left-1/2 sm:left-24 top-[22%] sm:top-1/2 -translate-x-1/2 sm:translate-x-0 -translate-y-1/2 w-32 sm:w-48 h-32 sm:h-48 flex items-center justify-center z-20">

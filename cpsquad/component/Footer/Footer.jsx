@@ -102,18 +102,18 @@ const Footer = () => {
         <div className="relative z-10 mt-12 md:mt-16 pt-8 border-t border-gray-800">
           <div className="flex flex-col items-center">
             <p className="text-xs md:text-sm text-gray-400 mb-6 uppercase tracking-wider">
-              BUILT BY
+              BUILT BY CPSQUAD WEB DEVELOPERS TEAM
             </p>
             <div className="flex gap-6 sm:gap-8 md:gap-10">
               {[
                 {
                   github: 'DevSsChar',
-                  name: 'Dev Shah',
+                  name: ' 23IT116 Dev Shah',
                   avatar: 'https://github.com/DevSsChar.png'
                 },
                 {
                   github: 'UtsavSavani08',
-                  name: 'Utsav Savani',
+                  name: ' 23IT114 Utsav Savani',
                   avatar: 'https://github.com/UtsavSavani08.png'
                 }
               ].map((contributor) => (

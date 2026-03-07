@@ -22,8 +22,8 @@ const NavLink = ({ href, pathname, children }) => {
 const NavLinks = ({ pathname }) => {
   const links = [
     { href: "/events", label: "Events" },
-    { href: "/contributors", label: "Contributors" },
     { href: "/members", label: "Members" },
+    { href: "/contributors", label: "Contributors" },
     // { href: "/blogs", label: "Blogs" },
   ];
 

@@ -49,7 +49,7 @@ export default function EventDetailPage() {
       <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Event Not Found</h1>
-          <p className="text-gray-400 mb-6">No event found with slug: "{slug}"</p>
+          <p className="text-gray-400 mb-6">No event found with slug: {slug}</p>
           <Link href="/events" className="text-[#00FF41] hover:underline">
             Back to Events
           </Link>

@@ -76,7 +76,7 @@ export default function EventsPage() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full sm:w-64 px-4 py-2 bg-[#1e1e1e] border border-gray-700 rounded-md text-white cursor-pointer focus:outline-none focus:border-[#00FF41] transition-colors"
+                className="w-full sm:w-64 px-4 py-2 bg-[#1e1e1e] border border-gray-700 rounded-md text-white cursor-pointer focus:outline-none focus:border-[#00FF41] transition-colors appearance-none"
               >
                 {eventTypes.map((type) => (
                   <option key={type} value={type} className="bg-[#1e1e1e]">

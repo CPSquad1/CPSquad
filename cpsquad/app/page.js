@@ -133,17 +133,17 @@ export default function Home() {
               ABOUT US •
             </h3>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-0 leading-[1.1] sm:leading-[1.15] uppercase">
-              WE'RE CODERS,<br />
+              WE ARE CODERS,<br />
               ENTHUSIASTS,<br />
               GEEKS.<br />
-              <span className="block mt-3 sm:mt-4 md:mt-5 lg:mt-6">WE'RE <span className="text-[#00FF41]" style={{ textShadow: '0 0 30px rgba(0, 255, 65, 0.6)' }}>CP SQUAD</span>_</span>
+              <span className="block mt-3 sm:mt-4 md:mt-5 lg:mt-6">WE ARE <span className="text-[#00FF41]" style={{ textShadow: '0 0 30px rgba(0, 255, 65, 0.6)' }}>CP SQUAD</span>_</span>
             </h2>
           </div>
 
           {/* Right Side - Description and Stats */}
           <div className="flex flex-col justify-center gap-8 sm:gap-10 md:gap-12 lg:gap-16">
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed sm:leading-relaxed md:leading-relaxed lg:leading-relaxed font-light">
-              Fueled by a passion for programming and the field of Computer Science, our club doesn't just build bleeding-edge applications, we delve deeper into the frontiers of the field, pushing boundaries and exploring new technology together. Embracing the journey of constant growth and discovery is what defines us as CP Squad.
+              Fueled by a passion for programming and the field of Computer Science, our club does not just build bleeding-edge applications, we delve deeper into the frontiers of the field, pushing boundaries and exploring new technology together. Embracing the journey of constant growth and discovery is what defines us as CP Squad.
             </p>
 
             {/* Stats */}
